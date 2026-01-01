@@ -17,36 +17,6 @@ export const NumericalButton = (
   let uuid = NewUUID();
   SessionSetDate(uuid, Data);
   let Numerical = Data.Numerical;
-  if (Numerical.Value) {
-    let Ele = document.createElement("input");
-    Ele.classList.add("NumericalButton");
-    Ele.classList.add("Value");
-    Ele.classList.add(Numerical.Type);
-    Ele.setAttribute("uuid", uuid);
-    Ele.setAttribute("type", "number");
-    Ele.setAttribute("value", "");
-    Ele.value = Numerical.Initial;
-    Ele.onselectionchange = function () {
-      //input发生变化时触发
-      if (isDrag) {
-        Ele.onblur();
-        return;
-      }
-      if (Ele.value > Numerical.Max) Ele.value = Numerical.Max;
-      else if (Ele.value < Numerical.Min) Ele.value = Numerical.Min;
-      Update(Ele.value, Ele.parentElement);
-    };
-    Ele.onblur = function () {
-      //拖放结束时触发
-      if (Ele.value == "") {
-        Ele.value = Numerical.Initial;
-      } else {
-        if (Numerical.Type == "int") Ele.value = Number(Ele.value).toFixed();
-        else Ele.value = Number(Ele.value).toFixed(2);
-      }
-    };
-    TargetEle.appendChild(Ele);
-  }
   if (Numerical.Slider) {
     let Ele = document.createElement("main");
     Ele.classList.add("NumericalButton");
@@ -81,6 +51,37 @@ export const NumericalButton = (
     Ele.appendChild(SliderEle);
     TargetEle.appendChild(Ele);
   }
+  if (Numerical.Value) {
+    let Ele = document.createElement("input");
+    Ele.classList.add("NumericalButton");
+    Ele.classList.add("Value");
+    Ele.classList.add(Numerical.Type);
+    Ele.setAttribute("uuid", uuid);
+    Ele.setAttribute("type", "number");
+    Ele.setAttribute("value", "");
+    Ele.value = Numerical.Initial;
+    Ele.onselectionchange = function () {
+      //input发生变化时触发
+      if (isDrag) {
+        Ele.onblur();
+        return;
+      }
+      if (Ele.value > Numerical.Max) Ele.value = Numerical.Max;
+      else if (Ele.value < Numerical.Min) Ele.value = Numerical.Min;
+      Update(Ele.value, Ele.parentElement);
+    };
+    Ele.onblur = function () {
+      //拖放结束时触发
+      if (Ele.value == "") {
+        Ele.value = Numerical.Initial;
+      } else {
+        if (Numerical.Type == "int") Ele.value = Number(Ele.value).toFixed();
+        else Ele.value = Number(Ele.value).toFixed(2);
+      }
+    };
+    TargetEle.appendChild(Ele);
+  }
+
   function Update(params, parentEle = document.createElement("p"), skip = []) {
     let list = [
       parentEle.getElementsByClassName("NumericalButton SliderBox")[0],
