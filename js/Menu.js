@@ -1,9 +1,10 @@
 import { GetDate, SessionGetDate, SetDate } from "./Date.js";
 import { GetButtonDate, SettingsButton } from "./Button.js";
 import { NewEle } from "./Element.js";
-import { SettingsLangText, RLangText } from "./Language.js";
+import { SettingsLangText, RLangText, SetLang } from "./Language.js";
 import { GetMainEle, GetModeCode, RModeCode, SetModeName } from "./Start.js";
 import { ModeList } from "./Mode/Mode.js";
+import LangList from "../lang/list.js";
 
 export const MainMenuUI = () => {
   //生成开始菜单
@@ -20,7 +21,7 @@ export const MainMenuUI = () => {
     { id: "choose_mode", array: [], click: StartModeUI },
     // { id: "rule", array: [], click: null },
     { id: "settings", array: [], click: SettingsUI },
-    // { id: "quit", array: [], click: null },
+    { id: "language", array: [], click: LanguageUI },
   ];
   for (const array of MMListArray) {
     let textEle = document.createElement("p");
@@ -51,7 +52,6 @@ export const StartModeUI = () => {
   let list = [
     { id: "mode", array: [], type: "Title", target: null },
     {
-      array: [],
       type: "Ele",
       target: null,
       text: false,
@@ -196,6 +196,79 @@ export const SettingsUI = () => {
 
   Ele.appendChild(saveEle);
   Ele.appendChild(exitEle);
+  GetMainEle().appendChild(Ele);
+  RLangText(Ele.querySelectorAll(".Text"));
+};
+
+export const LanguageUI = () => {
+  //设置页面
+  let id = "LanguageUI";
+  console.log(id);
+  if (document.getElementById(id)) {
+    //关闭页面
+    UIR(document.getElementById(id));
+    return;
+  }
+  MainMenuUI();
+  //关闭主菜单
+  let Ele = document.createElement("div");
+  Ele.id = id;
+  Ele.style.animation = `UIOff 0.25s reverse`;
+
+  let list = [
+    { id: "language", array: [], type: "Title", target: null },
+    { type: "Ele", target: null, text: false, class: ["LangList"] },
+    {
+      id: "exit",
+      array: [],
+      type: "LText",
+      target: null,
+      class: ["exit"],
+    },
+    {
+      id: "save",
+      array: [],
+      type: "LText",
+      target: null,
+      class: ["save"],
+    },
+  ];
+  let EleList = NewButtonEle(list);
+  for (const array of EleList) {
+    Ele.appendChild(array);
+  }
+
+  Ele.addEventListener("animationend", function () {
+    Ele.style.animation = "";
+  });
+
+  let listEle = Ele.getElementsByClassName("LangList")[0];
+  for (const array of LangList) {
+    let langEle = NewEle("p");
+    langEle.innerHTML = array.name;
+    langEle.onclick = function () {
+      SetLang(array.id);
+      RLangText(Ele.querySelectorAll(".Text"));
+    };
+    listEle.appendChild(langEle);
+  }
+  let exitEle = Ele.getElementsByClassName("exit")[0];
+  let saveEle = Ele.getElementsByClassName("save")[0];
+  saveEle.onclick = function () {
+    MainMenuUI();
+    LanguageUI();
+    RLangText();
+    exitEle.onclick = null;
+    saveEle.onclick = null;
+  };
+  exitEle.onclick = function () {
+    MainMenuUI();
+    LanguageUI();
+    exitEle.onclick = null;
+    saveEle.onclick = null;
+    //防止多次点击
+  };
+
   GetMainEle().appendChild(Ele);
   RLangText(Ele.querySelectorAll(".Text"));
 };

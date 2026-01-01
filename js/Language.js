@@ -2,10 +2,11 @@ import { GetFileJson } from "./GetFile.js";
 //引入GetFile.js模块中的GetFileJson函数
 const LangTitle = document.getElementById("LangTitle");
 const LangJson = { D: {}, P: {} }; //D 默认语言 P 玩家使用的语言  玩家使用的语言缺少(Error)时将使用默认语言
-let LangName = sessionStorage.getItem("LangName") ?? "zh_cn"; //使用目前的语言
+let LangName = "zh_cn"; //使用目前的语言
 
 export const RLangText = (LangText = []) => {
   //重载并应用语言
+  SetLang(GetLang());
   if (LangText.length > 1 && LangText == []) {
     let AllText = document.getElementsByClassName("Text"); //获取全部class为"Text"的元素
     for (let i = 0; i < AllText.length; i++) {
@@ -16,22 +17,21 @@ export const RLangText = (LangText = []) => {
     }
   }
   for (let i = 0; i < LangText.length; i++) {
-      let LangData = JSON.parse(LangText[i].getAttribute("langdata")); //将属性"langdata"里的字符串JSON转换回JSON
-      LangText[i].innerText = NewLangText(LangData["id"], LangData["array"]); //解析并应用文本
-
+    let LangData = JSON.parse(LangText[i].getAttribute("langdata")); //将属性"langdata"里的字符串JSON转换回JSON
+    LangText[i].innerText = NewLangText(LangData["id"], LangData["array"]); //解析并应用文本
   }
 };
 
 export const SetLang = (langname) => {
   //更改目前的语言
-  sessionStorage.setItem("LangName", langname);
+  localStorage.setItem("LangName", langname);
   LangName = langname;
   LangJson["P"] = GetFileJson(LangName);
   LangTitle.innerText = `Lang>${LangName}`;
 };
 export const GetLang = () => {
   //返回目前的语言
-  return LangName;
+  return localStorage.getItem("LangName") ?? LangName;
 };
 export const Language = (LangId) => {
   //判断玩家使用的语言是否可用 不可则使用默认语言

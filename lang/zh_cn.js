@@ -13,11 +13,11 @@ export default {
   test: "测试",
   exit: "退出",
   save: "保存",
+  language: "语言",
 
   //设置
   speed_game_logo: "快速游戏Logo",
   s_key: "键位 编辑",
-  s_lang: "语言",
 
   //词语
   t_mode: "模式",

@@ -7,10 +7,12 @@ export default {
   rule: "Rule",
   settings: "Settings",
   mode: "Mode",
+  choose_mode: "Select Mode",
   quit: "Quit",
   test: "Test",
   exit: "Exit",
   save: "Save",
+  language: "Language",
 
   speed_game_logo: "Quick Game Logo",
   s_key: "Keyboard Editing",
