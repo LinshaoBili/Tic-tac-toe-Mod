@@ -16,7 +16,7 @@ export const GameLogoAnimation = () => {
     //opacity是透明度 1 无透明 0 看不见
     MainMenuUI();
   });
-  let a = GetDate().settings.speed_game_logo.toLowerCase();
+  let a = GetDate().settings.speed_game_logo.toString().toLowerCase();
   if (a === "false") {
     time = 3;
   } else {
