@@ -1,0 +1,167 @@
+* {
+    user-select: none;
+}
+p{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+body{
+    background-color: black;
+}
+#main{
+    opacity: 0;
+    transition: 1s;
+}
+#LangTitle{
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+#GameLogoA{
+    top: 40%;
+    left: 50%;
+    font-size: 250%;
+    opacity: 0;
+    display: none;
+    transform: translate(-50%,0);
+    position: absolute;
+    color: azure;
+}
+#GameLogoA.ON{
+    display: block;
+}
+@keyframes GameLogoAK{
+    0%{
+        opacity: 0;
+        display: block;
+    }
+    25%{
+        opacity: 0;
+    }
+    60%{
+        opacity: 1;
+    }
+    70%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+#MainMenuUI,#StartModeUI,#SettingsUI{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    background-color: rgba(0, 255, 255, 0.075);
+    color: #FFF;
+}
+#MainMenuUI{
+    top: 25%;
+    width: 100%;
+    min-width: 100px;
+    max-width: 200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+#MainMenuUI p{
+    padding: 5px;
+    transition: 0.5s;
+}
+#MainMenuUI p:hover{
+    transition: 0.25s;
+}
+
+@keyframes UIOff {
+    0%{opacity: 1;}
+    100%{opacity: 0;}
+}
+#StartModeUI{
+    top: 25%;
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 4.5em;
+    min-width: 250px;
+    max-width: 300px;
+    margin-top: -50px;
+    height: 60%;
+    min-height: 200px;
+    max-height: 400px;
+}
+#StartModeUI .Title{
+    text-align: center;
+}
+
+.Ele.MapList{
+    margin-top: 0.5em;
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 100%;
+    overflow-x:hidden;
+}
+.Ele.MapList::-webkit-scrollbar{
+    width: 0.15em;
+}
+.Ele.MapList::-webkit-scrollbar-track {
+   background-color: rgba(15, 125, 255,0.25);
+   border-radius: 100em;
+   margin: 1em 0;
+}
+.Ele.MapList::-webkit-scrollbar-thumb{
+    background-color: rgba(255, 255, 255,0.25);
+}
+.Ele.MapList::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(255, 255, 255,0.75);
+}
+.MapUI{
+    width: 15em;
+    height: 10em;
+    margin: 1em auto;
+    border-radius: 0.25em;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#StartModeUI .start,
+#StartModeUI .exit{
+    bottom: 0;
+    position: absolute;
+    padding: 0.5em 1em;
+    font-weight: bold;
+}
+
+#StartModeUI .exit{
+    left: 5em;
+}
+#StartModeUI .start{
+    right: 5em;
+}
+
+#SettingsUI{
+    top: 25%;
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 45px;
+    min-width: 250px;
+    max-width: 300px;
+    margin-top: -50px;
+    height: 60%;
+    min-height: 200px;
+    max-height: 400px;
+}
+
+#SettingsUI .Title{
+    text-align: center;
+    font-weight: bold;
+}
+
+#SettingsUI .Save,#SettingsUI .Exit{
+    position: absolute;
+    text-align: center;
+    font-weight: bold;
+    bottom: 10px;
+}
+
+#SettingsUI .Save{
+    right: 100px;
+}
+#SettingsUI .Exit{
+    left: 100px;
+}

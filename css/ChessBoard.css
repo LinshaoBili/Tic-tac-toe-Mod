@@ -1,0 +1,11 @@
+.ChessBoardX{
+    background-color: antiquewhite;
+    display: flex;
+    width:min-content;
+}
+.Plaid{
+    background-color: aqua;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+}

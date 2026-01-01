@@ -1,0 +1,29 @@
+export default {
+  game_name: "Tic Tac Toe Mod",
+  mode_original: "Original Tic Tac Toe",
+  mode_ls: "LS version Tic Tac Toe",
+
+  start: "Start",
+  rule: "Rule",
+  settings: "Settings",
+  mode: "Mode",
+  quit: "Quit",
+  test: "Test",
+  exit: "Exit",
+  save: "Save",
+
+  speed_game_logo: "Quick Game Logo",
+  s_key: "Keyboard Editing",
+
+  t_mode: "mode",
+  t_rule: "rule",
+  t_on: "on",
+  t_off: "off",
+
+  error: "error",
+  error_prompt: "An error occurred in the game and it may not run properly.",
+  error_prompt_n: "The game encountered @n@ errors and may not run properly",
+  error_missing: "missing",
+  error_mode_not_found: "Game mode not found @name@",
+  error_mode_restore: "Game mode has been restored to @name@",
+};

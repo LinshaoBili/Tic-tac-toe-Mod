@@ -1,0 +1,72 @@
+
+.Bool::before,.IntNumerical::before,.FloatNumerical::before{
+    content: "\n";
+    opacity: 0;
+}
+
+/* Bool */
+.Bool p{
+    float: left;
+}
+.Bool .BoolButton{
+    float: right;
+}
+.BoolButton{
+    padding: 9px;
+    background-color: rgba(250, 235, 215, 0.200);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+.BoolButton.true::before,.BoolButton.false::before{
+    position: absolute;
+    transform: translate(-50%,-50%);
+}
+.BoolButton.true::before{
+    content: "Y";
+    color:lawngreen;
+}
+.BoolButton.false::before{
+    content: "N";
+    color: red;
+}
+/* Numerical */
+.IntNumerical p,.FloatNumerical p{
+    float: left;
+    width: 40%;
+}
+.IntNumerical .int,.FloatNumerical .float{
+    float: right;
+    display: flex;
+}
+.NumericalButton{
+    background-color: aquamarine;
+}
+.NumericalButton.SliderBox{
+    margin-top: 0.25em;
+    max-width: 7em;
+    width: 30%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background-color:brown;
+    overflow: hidden;
+}
+.NumericalButton.SliderBox .Slider{
+    transform: translate(-50%,0%);
+    min-height: 0.5em;
+    min-width: 0.5em;
+    background-color: #fff;
+}
+.NumericalButton.Value{
+    width: 2.25em;
+    background-color:rgba(0, 0, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    line-height: 1.2;
+    text-align: center;
+    margin-left: 0.5em;
+    color: #FFF;
+}
+
+.NumericalButton.Value[type="number"]::-webkit-outer-spin-button,
+.NumericalButton.Value[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
