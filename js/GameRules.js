@@ -25,3 +25,33 @@ export default {
     Placement: [{ Type: "PseudoRandom" }],
   },
 };
+export const ChessBoard = () => {
+  //开始时触发
+  NewChessBoard(GetGameRules("ChessBoardGenerate"));
+  EleSetXY(NewChessBoardEle());
+  SetStatus(StatusType.Started);
+};
+export const ClickChessPlaid = (ele) => {
+  //点击棋子触发
+  console.log(`ClickChessPlaid`);
+};
+export const MouseEnterChessPlaid = (ele) => {
+  //鼠标进入棋子触发
+  console.log(`MouseEnterChessPlaid`);
+};
+export const MouseLeaveChessPlaid = (ele) => {
+  //鼠标离开棋子触发
+  console.log(`MouseLeaveChessPlaid`);
+};
+export const KeyDown = () => {
+  //摁下键盘
+  console.log(`KeyDown`);
+};
+export const KeyUp = () => {
+  //松开键盘
+  console.log(`KeyUp`);
+};
+export const EverySecond = () => {
+  //每一秒触发
+  console.log(`EverySecond`);
+};

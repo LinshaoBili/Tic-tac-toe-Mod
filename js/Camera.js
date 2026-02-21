@@ -16,7 +16,7 @@ document.addEventListener("mousemove", (event) => {
   clientX = event.clientX;
   clientY = event.clientY;
 });
-let focus = FocusType.FollowMouse;
+let focus = FocusType.Moderate;
 let CameraConfig = { Enable: true, ProcessUUID: null, DelayTime: 500 };
 export const CameraUpdate = (Config = { Enable: true, ProcessUUID: null }) => {
   if (CameraConfig.ProcessUUID == null) {

@@ -1,5 +1,5 @@
 import { GetChessBoard, SelectChessPlaid } from "./ChessBoard.js";
-import { GetViewEle } from "./Start.js";
+import { GetModeCode, GetViewEle } from "./Start.js";
 import { Focus } from "./Camera.js";
 
 export const NewEle = (type = "p", id = "", appendChild = null) => {
@@ -49,15 +49,13 @@ export const NewChessPlaid = (appendChild = null) => {
   var ele = document.createElement("main");
   ele.classList.add("Plaid");
   ele.onmouseenter = function () {
-    SelectChessPlaid(ele);
-    Focus();
+    GetModeCode()["MouseEnterChessPlaid"](ele);
   };
   ele.onmouseleave = function () {
-    SelectChessPlaid();
-    Focus();
+    GetModeCode()["MouseLeaveChessPlaid"](ele);
   };
   ele.onclick = function () {
-    console.log(`Click`);
+    GetModeCode()["ClickChessPlaid"](ele);
   };
   if (appendChild != null) {
     appendChild.appendChild(ele);
