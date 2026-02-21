@@ -8,7 +8,7 @@ let Key = {
 export const SKey = (event) => {
   //按下快捷键处理
   switch (event.key) {
-    case Key["Rlang"]:
+    case Key.Rlang:
       RLangText();
       //刷新文本
       break;

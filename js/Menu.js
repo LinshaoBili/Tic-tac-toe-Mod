@@ -1,6 +1,6 @@
-import { GetDate, SessionGetDate, SetDate } from "./Date.js";
+import { GetDate, SetDate } from "./Date.js";
 import { GetButtonDate, SettingsButton } from "./Button.js";
-import { NewEle } from "./Element.js";
+import { EleSetXY, NewEle } from "./Element.js";
 import { SettingsLangText, RLangText, SetLang } from "./Language.js";
 import { GetMainEle, GetModeCode, RModeCode, SetModeName } from "./Start.js";
 import { ModeList } from "./Mode/Mode.js";
@@ -106,6 +106,9 @@ export const StartModeUI = () => {
   };
   let startEle = Ele.getElementsByClassName("start")[0];
   startEle.onclick = function () {
+    StartModeUI();
+    exitEle.onclick = null;
+    startEle.onclick = null;
     GetModeCode()["ChessBoard"]();
   };
 

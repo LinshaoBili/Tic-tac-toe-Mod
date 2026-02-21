@@ -1,3 +1,4 @@
+import { CameraUpdate, SetCameraConfig } from "./Camera.js";
 import { LangInitialize, RLangText } from "./Language.js";
 import { GameLogoAnimation } from "./LoadingManager.js";
 import { RModeRules } from "./Rule.js";
@@ -14,6 +15,8 @@ function Initialize() {
   //更新文本
   setTimeout(() => GameLogoAnimation(), 100);
   //网页进入时显示游戏名等
+  SetCameraConfig({ DelayTime: 1000 });
+  CameraUpdate();
 }
 
 Initialize();

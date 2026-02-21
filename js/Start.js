@@ -1,5 +1,10 @@
 import { NewLangText, NLT } from "./Language.js";
 import { ModeList } from "./Mode/Mode.js";
+export const StatusType = Object.freeze({
+  Started: { Started: "Started" },
+  idle: { idle: "idle" },
+});
+let status = StatusType.idle;
 let mode = ModeList()[0].url;
 let main = document.getElementById("main");
 let view = document.getElementById("view");
@@ -36,4 +41,23 @@ export const RModeCode = () => {
       console.error(err);
     });
   console.log(modeCode);
+};
+export const GetStatus = () => {
+  return status;
+};
+export const SetStatus = (type = StatusType.idle) => {
+  status = type;
+  switch (type) {
+    case StatusType.Started:
+      view.style.opacity = 1;
+      view.style.transition = "0.25s";
+      break;
+    case StatusType.idle:
+      view.style.opacity = 0;
+      view.style.transition = "0.5s";
+      break;
+
+    default:
+      break;
+  }
 };
