@@ -40,7 +40,7 @@ export const EleSetXY = (list = []) => {
       JSON.stringify({
         X: array.getBoundingClientRect().left,
         Y: array.getBoundingClientRect().top,
-      })
+      }),
     );
   }
 };
@@ -49,9 +49,11 @@ export const NewChessPlaid = (appendChild = null) => {
   var ele = document.createElement("main");
   ele.classList.add("Plaid");
   ele.onmouseenter = function () {
+    SelectChessPlaid(ele);
     GetModeCode()["MouseEnterChessPlaid"](ele);
   };
   ele.onmouseleave = function () {
+    SelectChessPlaid();
     GetModeCode()["MouseLeaveChessPlaid"](ele);
   };
   ele.onclick = function () {

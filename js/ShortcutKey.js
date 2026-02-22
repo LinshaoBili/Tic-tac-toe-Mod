@@ -4,7 +4,6 @@ let Key = {
   //键盘快捷键
   Rlang: "p",
 };
-
 export const SKey = (event) => {
   //按下快捷键处理
   switch (event.key) {

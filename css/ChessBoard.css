@@ -2,6 +2,7 @@
     background-color: antiquewhite;
     display: flex;
     width:min-content;
+    margin: -0.1em;
 }
 .Plaid{
     background-color: aqua;

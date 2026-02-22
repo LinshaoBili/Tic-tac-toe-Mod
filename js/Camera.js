@@ -2,6 +2,9 @@ import { GetSelectChessPlaid } from "./ChessBoard.js";
 import { NewUUID } from "./Date.js";
 import { GetViewEle, StatusType, GetStatus } from "./Start.js";
 
+let Zoom = true;
+let ZoomSize = 1;
+
 const FocusType = Object.freeze({
   Minimum: { Minimum: "Minimum", Platform: "all" }, //最小
   Moderate: { Moderate: "Moderate", Platform: "all" }, //适中
@@ -85,3 +88,17 @@ export const Focus = () => {
 export const SetCameraConfig = (json) => {
   Object.assign(CameraConfig, json);
 };
+
+function ScrollZoom(event) {
+  if (Zoom == false) return;
+  let view = GetViewEle();
+  view.style.transform = `translate(-50%,-50%) scale(${ZoomSize})`;
+  event.preventDefault();
+  const deltaY = event.deltaY;
+  if (deltaY > 0) {
+    ZoomSize -= 0.1;
+  } else {
+    ZoomSize += 0.1;
+  }
+}
+window.addEventListener("wheel", ScrollZoom, { passive: false });

@@ -5,11 +5,29 @@ export const GetChessBoard = () => {
   //获取棋盘
   return chessBoard;
 };
-export const PlayChess = (ChessXY, Player) => {};
+export const PlayChess = (ChessXY, Name = null, Replace = false) => {
+  //下棋
+  if (ChessXY == null) return;
+
+  function T() {
+    //设置玩家的棋子
+    chessBoard[ChessXY.X][ChessXY.Y]["ChessPiece"] = Name;
+    Replace = true;
+  }
+
+  if (Replace == true) T();
+  else {
+    let ChessPiece = chessBoard[ChessXY.X][ChessXY.Y]["ChessPiece"];
+    if (ChessPiece == null) T();
+    else Replace = false;
+  }
+  console.log(chessBoard);
+  return Replace;
+};
 export const NewChessBoard = (rule = chessBoardRule) => {
   chessBoard = [];
   chessBoard["All"] = [];
-  ExpandChessBoard({ X: rule["MaxX"], Y: rule["MaxY"] });
+  ExpandChessBoard({ X: rule.MaxX, Y: rule.MaxY });
 
   //棋盘生成规则
   //固定
@@ -18,7 +36,6 @@ export const NewChessBoard = (rule = chessBoardRule) => {
 
   console.log(chessBoard);
 };
-
 export const ExpandChessBoard = (max = { X, Y }, CB = chessBoard) => {
   //扩展棋盘
   chessBoard["lengthAll"] = 0;
@@ -51,7 +68,7 @@ export const ExpandChessBoard = (max = { X, Y }, CB = chessBoard) => {
 export const SetChessPlaid = (array = [], CB = chessBoard) => {
   //设置棋格子
   for (const plaid of array) {
-    CB[plaid["X"]][plaid["Y"]] = plaid;
+    CB[plaid.X][plaid.Y] = plaid;
   }
 };
 
