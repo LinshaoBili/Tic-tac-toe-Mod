@@ -87,6 +87,11 @@ export const StartModeUI = () => {
     modeEle.classList.add("MapUI");
     modeEle.classList.add(array.id);
     modeEle.onclick = function () {
+      let mapEleList = modeEle.parentElement.querySelectorAll(".MapUI");
+      for (const ele of mapEleList) {
+        ele.classList.remove("Selected");
+      }
+      modeEle.classList.add("Selected");
       SetModeName(array.url);
       RModeCode();
     };
@@ -222,13 +227,6 @@ export const LanguageUI = () => {
     { id: "language", array: [], type: "Title", target: null },
     { type: "Ele", target: null, text: false, class: ["LangList"] },
     {
-      id: "exit",
-      array: [],
-      type: "LText",
-      target: null,
-      class: ["exit"],
-    },
-    {
       id: "save",
       array: [],
       type: "LText",
@@ -255,21 +253,12 @@ export const LanguageUI = () => {
     };
     listEle.appendChild(langEle);
   }
-  let exitEle = Ele.getElementsByClassName("exit")[0];
   let saveEle = Ele.getElementsByClassName("save")[0];
   saveEle.onclick = function () {
     MainMenuUI();
     LanguageUI();
     RLangText();
-    exitEle.onclick = null;
     saveEle.onclick = null;
-  };
-  exitEle.onclick = function () {
-    MainMenuUI();
-    LanguageUI();
-    exitEle.onclick = null;
-    saveEle.onclick = null;
-    //防止多次点击
   };
 
   GetMainEle().appendChild(Ele);
