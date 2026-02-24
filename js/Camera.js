@@ -5,6 +5,9 @@ import { GetViewEle, StatusType, GetStatus } from "./Start.js";
 let Zoom = true;
 let ZoomSize = 1;
 
+let Drag = true;
+let Translate = { X: 0, Y: 0 };
+
 const FocusType = Object.freeze({
   Minimum: { Minimum: "Minimum", Platform: "all" }, //最小
   Moderate: { Moderate: "Moderate", Platform: "all" }, //适中
@@ -15,9 +18,14 @@ const FocusType = Object.freeze({
 });
 let clientX = 0;
 let clientY = 0;
+let movementX = 0;
+let movementY = 0;
 document.addEventListener("mousemove", (event) => {
   clientX = event.clientX;
   clientY = event.clientY;
+  movementX = event.movementX;
+  movementY = event.movementY;
+  CameraDrag();
 });
 let focus = FocusType.FollowSelect;
 let CameraConfig = { Enable: true, ProcessUUID: null, DelayTime: 500 };
@@ -37,8 +45,7 @@ export const CameraUpdate = (Config = { Enable: true, ProcessUUID: null }) => {
     }, time);
   }
 };
-export const Focus = () => {
-  let selectChessPlaidEle = GetSelectChessPlaid(); //玩家选中的棋盘格子
+export const Focus = (selectChessPlaidEle = GetSelectChessPlaid()) => {
   let chessBoardEle = GetViewEle(); //棋盘元素
   let PH = window.innerHeight; //玩家的界面高度
   let PW = window.innerWidth; //玩家的界面宽度
@@ -88,17 +95,51 @@ export const Focus = () => {
 export const SetCameraConfig = (json) => {
   Object.assign(CameraConfig, json);
 };
-
 function ScrollZoom(event) {
   if (Zoom == false) return;
-  let view = GetViewEle();
-  view.style.transform = `translate(-50%,-50%) scale(${ZoomSize})`;
   event.preventDefault();
   const deltaY = event.deltaY;
-  if (deltaY > 0) {
-    ZoomSize -= 0.1;
-  } else {
-    ZoomSize += 0.1;
-  }
+  if (deltaY > 0) ZoomSize -= 0.1;
+  else ZoomSize += 0.1;
+  ZoomSize = Math.max(0.1, Math.min(3, ZoomSize));
+  ZoomSize = Number(ZoomSize.toFixed(1));
+  let view = GetViewEle();
+  let transform = view.style.transform.replace(
+    /scale\([^)]+\)/,
+    `scale(${ZoomSize})`,
+  );
+  view.style.transform = transform;
 }
 window.addEventListener("wheel", ScrollZoom, { passive: false });
+
+let DragDown = false;
+
+function DragMouseDown() {
+  if (Drag == false) return;
+  DragDown = true;
+  console.log("Down");
+}
+function DragMouseUp() {
+  if (Drag == false) return;
+  DragDown = false;
+  console.log("Up");
+}
+if (Drag == true) {
+  window.onmousedown = DragMouseDown;
+  window.onmouseup = DragMouseUp;
+}
+function CameraDrag() {
+  if (DragDown == false) return;
+  let PH = window.innerHeight; //玩家的界面高度
+  let PW = window.innerWidth; //玩家的界面宽度
+  let TX = (movementX / PW) * (ZoomSize + 100);
+  let TY = (movementY / PH) * (ZoomSize + 100);
+  Translate.X += TX;
+  Translate.Y += TY;
+  let view = GetViewEle();
+  let transform = view.style.transform.replace(
+    /translate\([^)]+\)/,
+    `translate(${Translate.X - 50}%,${Translate.Y - 50}%)`,
+  );
+  view.style.transform = transform;
+}

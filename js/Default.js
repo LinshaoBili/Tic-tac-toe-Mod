@@ -3,6 +3,7 @@ import { LangInitialize, RLangText } from "./Language.js";
 import { GameLogoAnimation } from "./LoadingManager.js";
 import { RModeRules } from "./Rule.js";
 import { SKey } from "./ShortcutKey.js";
+import { GetViewEle } from "./Start.js";
 
 document.addEventListener("keydown", SKey);
 function Initialize() {
@@ -17,6 +18,8 @@ function Initialize() {
   //网页进入时显示游戏名等
   SetCameraConfig({ DelayTime: 1000 });
   CameraUpdate();
+  let view = GetViewEle();
+  view.style.transform = `translate(-50%,-50%) scale(1)`;
 }
 
 Initialize();

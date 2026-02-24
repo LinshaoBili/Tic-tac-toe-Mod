@@ -1,5 +1,5 @@
 import { NewChessBoard, PlayChess } from "../../ChessBoard.js";
-import { NewChessBoardEle, EleSetXY } from "../../Element.js";
+import { NewChessBoardEle, EleSetXY, GetChessPlaidEle } from "../../Element.js";
 import { GetGameRules } from "../../Rule.js";
 import { AddCSS, DelCSS, SetStatus, StatusType } from "../../Start.js";
 import { Focus } from "../../Camera.js";
@@ -7,6 +7,7 @@ export default {};
 
 let ChessNumber = 0;
 let Player = ["P1", "P2"];
+let middleEle;
 let CSSUUID;
 export const GameStart = () => {
   //开始时触发
@@ -14,6 +15,7 @@ export const GameStart = () => {
   EleSetXY(NewChessBoardEle());
   SetStatus(StatusType.Started);
   CSSUUID = AddCSS("js/Mode/Original/Original.css");
+  middleEle = GetChessPlaidEle()["0"]["0"];
 };
 export const GameEnd = () => {
   DelCSS(CSSUUID);
@@ -34,7 +36,7 @@ export const MouseEnterChessPlaid = (ele) => {
 };
 export const MouseLeaveChessPlaid = (ele) => {
   //鼠标离开棋子触发
-  Focus();
+  Focus(middleEle);
 };
 export const KeyDown = () => {
   //摁下键盘

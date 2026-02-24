@@ -64,3 +64,15 @@ export const NewChessPlaid = (appendChild = null) => {
   }
   return ele;
 };
+export const GetChessPlaidEle = () => {
+  let view = GetViewEle();
+  let plaidEleList = {};
+  for (const eleX of view.children) {
+    for (const ele of eleX.children) {
+      let plaid = JSON.parse(ele.getAttribute("plaid"));
+      if (plaidEleList[`${plaid.X}`] == null) plaidEleList[`${plaid.X}`] = {};
+      plaidEleList[`${plaid.X}`][`${plaid.Y}`] = ele;
+    }
+  }
+  return plaidEleList;
+};
