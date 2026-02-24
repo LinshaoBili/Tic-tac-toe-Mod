@@ -25,11 +25,14 @@ export default {
     Placement: [{ Type: "PseudoRandom" }],
   },
 };
-export const ChessBoard = () => {
+export const GameStart = () => {
   //开始时触发
   NewChessBoard(GetGameRules("ChessBoardGenerate"));
   EleSetXY(NewChessBoardEle());
   SetStatus(StatusType.Started);
+};
+export const GameEnd = () => {
+  //结束时触发
 };
 export const ClickChessPlaid = (ele) => {
   //点击棋子触发

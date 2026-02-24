@@ -109,7 +109,7 @@ export const StartModeUI = () => {
     StartModeUI();
     exitEle.onclick = null;
     startEle.onclick = null;
-    GetModeCode()["ChessBoard"]();
+    GetModeCode()["GameStart"]();
   };
 
   GetMainEle().appendChild(Ele);
@@ -168,12 +168,12 @@ export const SettingsUI = () => {
   saveEle.onclick = function () {
     let date = { settings: {} };
     let buttonEleList = Ele.querySelectorAll(
-      ".Bool,.IntNumerical,.FloatNumerical"
+      ".Bool,.IntNumerical,.FloatNumerical",
     );
     //querySelectorAll用css的方式获取元素 All全部
     for (const array of buttonEleList) {
       let id = JSON.parse(
-        array.getElementsByClassName("Text")[0].getAttribute("langdata")
+        array.getElementsByClassName("Text")[0].getAttribute("langdata"),
       ).id;
       date.settings[id] = GetButtonDate(array);
     }

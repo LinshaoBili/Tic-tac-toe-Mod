@@ -19,7 +19,7 @@ document.addEventListener("mousemove", (event) => {
   clientX = event.clientX;
   clientY = event.clientY;
 });
-let focus = FocusType.Moderate;
+let focus = FocusType.FollowSelect;
 let CameraConfig = { Enable: true, ProcessUUID: null, DelayTime: 500 };
 export const CameraUpdate = (Config = { Enable: true, ProcessUUID: null }) => {
   if (CameraConfig.ProcessUUID == null) {
@@ -74,10 +74,10 @@ export const Focus = () => {
     case FocusType.ManualMouse:
       break;
     case FocusType.FollowMouse:
-      X -= ratio(CBW / 2, CBW / -2, CBPOffX - CBW + CBPW / 2) * 2;
-      Y -= ratio(CBH / 2, CBH / -2, CBPOffY - CBH + CBPH / 2) * 2;
       break;
     case FocusType.FollowSelect:
+      X -= ratio(CBW / 2, CBW / -2, CBPOffX - CBW + CBPW / 2) * 2;
+      Y -= ratio(CBH / 2, CBH / -2, CBPOffY - CBH + CBPH / 2) * 2;
       break;
     default:
       break;

@@ -1,25 +1,30 @@
 import { NewChessBoard, PlayChess } from "../../ChessBoard.js";
 import { NewChessBoardEle, EleSetXY } from "../../Element.js";
 import { GetGameRules } from "../../Rule.js";
-import { SetStatus, StatusType } from "../../Start.js";
+import { AddCSS, DelCSS, SetStatus, StatusType } from "../../Start.js";
 import { Focus } from "../../Camera.js";
 export default {};
 
 let ChessNumber = 0;
-let Player = ["1P", "2P"];
-export const ChessBoard = () => {
+let Player = ["P1", "P2"];
+let CSSUUID;
+export const GameStart = () => {
   //开始时触发
   NewChessBoard(GetGameRules("ChessBoardGenerate"));
   EleSetXY(NewChessBoardEle());
   SetStatus(StatusType.Started);
+  CSSUUID = AddCSS("js/Mode/Original/Original.css");
+};
+export const GameEnd = () => {
+  DelCSS(CSSUUID);
+  //结束时触发
 };
 export const ClickChessPlaid = (ele) => {
   //点击棋子触发
   const plaid = JSON.parse(ele.getAttribute("plaid"));
-  let name;
-  if (ChessNumber % 2 === 0) name = Player[ChessNumber % 2];
-  else name = Player[ChessNumber % 2];
+  let name = Player[ChessNumber % 2];
   if (PlayChess(plaid, name) == true) {
+    ele.classList.add(name);
     ChessNumber++;
   }
 };

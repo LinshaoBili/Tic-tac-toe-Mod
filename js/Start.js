@@ -1,3 +1,4 @@
+import { NewUUID } from "./Date.js";
 import { NewLangText, NLT } from "./Language.js";
 import { ModeList } from "./Mode/Mode.js";
 export const StatusType = Object.freeze({
@@ -59,5 +60,29 @@ export const SetStatus = (type = StatusType.idle) => {
 
     default:
       break;
+  }
+};
+export const AddCSS = (href = null, uuid = NewUUID()) => {
+  if (href == null) return;
+  const existingLinks = document.querySelectorAll(`link[href="${href}"]`);
+  if (existingLinks.length > 0) {
+    return existingLinks[0];
+  }
+  let linkEle = document.createElement("link");
+  linkEle.rel = "stylesheet";
+  linkEle.media = "print";
+  linkEle.type = "text/css";
+  linkEle.href = href;
+  linkEle.onload = () => {
+    linkEle.media = "all";
+    linkEle.id = uuid;
+  };
+  document.head.appendChild(linkEle);
+  return uuid;
+};
+export const DelCSS = (id) => {
+  let cssEleList = document.head.querySelectorAll(`${id}`);
+  for (const ele of cssEleList) {
+    ele.remove();
   }
 };
