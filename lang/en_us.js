@@ -21,6 +21,10 @@ export default {
   t_rule: "rule",
   t_on: "on",
   t_off: "off",
+  t_win: "win",
+  t_player: "player",
+  t_time: "time",
+  t_onemoretime: "one more time",
 
   error: "error",
   error_prompt: "An error occurred in the game and it may not run properly.",

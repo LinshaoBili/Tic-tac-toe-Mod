@@ -1,4 +1,9 @@
-import { NewChessBoard, PlayChess } from "../../ChessBoard.js";
+import {
+  GetNearbyPieces,
+  GetPiecesAngle,
+  NewChessBoard,
+  PlayChess,
+} from "../../ChessBoard.js";
 import { NewChessBoardEle, EleSetXY, GetChessPlaidEle } from "../../Element.js";
 import { GetGameRules } from "../../Rule.js";
 import { AddCSS, DelCSS, SetStatus, StatusType } from "../../Start.js";
@@ -29,6 +34,31 @@ export const ClickChessPlaid = (ele) => {
     ele.classList.add(name);
     ChessNumber++;
   }
+  const AngleList = [
+    GetPiecesAngle.r0,
+    GetPiecesAngle.r45,
+    GetPiecesAngle.r90,
+    GetPiecesAngle.r135,
+  ];
+  console.log(`\n ${name}`);
+  for (const Angle of AngleList) {
+    let plaidEleList = GetNearbyPieces(plaid, Angle, { Min: -2, Max: 2 });
+    let cacke = 0;
+    console.log(plaidEleList);
+
+    for (const plaidEle of plaidEleList) {
+      if (plaidEle.classList.contains(name)) {
+        cacke++;
+        if (cacke >= 3) {
+          for (const plaidEle of plaidEleList) {
+            plaidEle.style.backgroundColor = "#fff";
+          }
+          WinUI(name);
+          break;
+        }
+      }
+    }
+  }
 };
 export const MouseEnterChessPlaid = (ele) => {
   //鼠标进入棋子触发
@@ -47,3 +77,4 @@ export const KeyUp = () => {
 export const EverySecond = () => {
   //每一秒触发
 };
+function WinUI(name) {}

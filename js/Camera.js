@@ -117,12 +117,12 @@ let DragDown = false;
 function DragMouseDown() {
   if (Drag == false) return;
   DragDown = true;
-  console.log("Down");
+  // console.log("Down");
 }
 function DragMouseUp() {
   if (Drag == false) return;
   DragDown = false;
-  console.log("Up");
+  // console.log("Up");
 }
 if (Drag == true) {
   window.onmousedown = DragMouseDown;
@@ -132,8 +132,8 @@ function CameraDrag() {
   if (DragDown == false) return;
   let PH = window.innerHeight; //玩家的界面高度
   let PW = window.innerWidth; //玩家的界面宽度
-  let TX = (movementX / PW) * (ZoomSize + 100);
-  let TY = (movementY / PH) * (ZoomSize + 100);
+  let TX = (movementX / PW) * (ZoomSize + 250);
+  let TY = (movementY / PH) * (ZoomSize + 250);
   Translate.X += TX;
   Translate.Y += TY;
   let view = GetViewEle();

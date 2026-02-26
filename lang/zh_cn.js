@@ -24,6 +24,10 @@ export default {
   t_rule: "规则",
   t_on: "开",
   t_off: "关",
+  t_win: "胜利",
+  t_player: "玩家",
+  t_time: "时间",
+  t_onemoretime: "再来一次",
 
   //报错
   error: "错误",

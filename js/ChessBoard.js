@@ -1,3 +1,5 @@
+import { GetChessPlaidEle } from "./Element.js";
+
 let chessBoardRule;
 let chessBoard = [];
 let selectChessPlaid = null;
@@ -21,7 +23,7 @@ export const PlayChess = (ChessXY, Name = null, Replace = false) => {
     if (ChessPiece == null) T();
     else Replace = false;
   }
-  console.log(chessBoard);
+  // console.log(chessBoard);
   return Replace;
 };
 export const NewChessBoard = (rule = chessBoardRule) => {
@@ -77,4 +79,36 @@ export const SelectChessPlaid = (ele = null) => {
 };
 export const GetSelectChessPlaid = () => {
   return selectChessPlaid;
+};
+export const GetPiecesAngle = Object.freeze({
+  r0: { X: 0, Y: 1 },
+  r45: { X: 1, Y: 1 },
+  r90: { X: 1, Y: 0 },
+  r135: { X: 1, Y: -1 },
+});
+export const GetNearbyPieces = (
+  Plaid = { X: null, Y: null },
+  Angle = GetPiecesAngle.r0,
+  Range = { Min: -1, Max: 1 },
+) => {
+  if (Plaid.X == null && Plaid.Y == null) return;
+  let plaidEleList = GetChessPlaidEle();
+  let list = [];
+  let traverse = { X: Plaid.X, Y: Plaid.Y };
+  for (let i = 0; i > Range.Min; i--) {
+    traverse.X -= Angle.X;
+    traverse.Y -= Angle.Y;
+  }
+
+  for (let i = Range.Min; i < Range.Max + 1; i++) {
+    try {
+      let plaidEle = plaidEleList[traverse.X][traverse.Y];
+      list.push(plaidEle);
+    } catch (error) {
+      // console.log(traverse);
+    }
+    traverse.X += Angle.X;
+    traverse.Y += Angle.Y;
+  }
+  return list.filter((item) => item !== undefined);
 };
