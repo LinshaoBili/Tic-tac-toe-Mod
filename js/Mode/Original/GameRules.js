@@ -4,16 +4,29 @@ import {
   NewChessBoard,
   PlayChess,
 } from "../../ChessBoard.js";
-import { NewChessBoardEle, EleSetXY, GetChessPlaidEle } from "../../Element.js";
+import {
+  NewChessBoardEle,
+  EleSetXY,
+  GetChessPlaidEle,
+  NewEle,
+} from "../../Element.js";
 import { GetGameRules } from "../../Rule.js";
-import { AddCSS, DelCSS, SetStatus, StatusType } from "../../Start.js";
+import {
+  AddCSS,
+  DelCSS,
+  GetViewEle,
+  SetStatus,
+  StatusType,
+} from "../../Start.js";
 import { Focus } from "../../Camera.js";
+import { NLT, RLangText, SettingsLangText } from "../../Language.js";
 export default {};
 
 let ChessNumber = 0;
 let Player = ["P1", "P2"];
 let middleEle;
 let CSSUUID;
+let End = false;
 export const GameStart = () => {
   //开始时触发
   NewChessBoard(GetGameRules("ChessBoardGenerate"));
@@ -40,12 +53,11 @@ export const ClickChessPlaid = (ele) => {
     GetPiecesAngle.r90,
     GetPiecesAngle.r135,
   ];
-  console.log(`\n ${name}`);
+  // console.log(`\n ${name}`);
   for (const Angle of AngleList) {
     let plaidEleList = GetNearbyPieces(plaid, Angle, { Min: -2, Max: 2 });
     let cacke = 0;
-    console.log(plaidEleList);
-
+    // console.log(plaidEleList);
     for (const plaidEle of plaidEleList) {
       if (plaidEle.classList.contains(name)) {
         cacke++;
@@ -53,7 +65,10 @@ export const ClickChessPlaid = (ele) => {
           for (const plaidEle of plaidEleList) {
             plaidEle.style.backgroundColor = "#fff";
           }
-          WinUI(name);
+          if (!End) {
+            End = true;
+            WinUI(name);
+          }
           break;
         }
       }
@@ -77,4 +92,10 @@ export const KeyUp = () => {
 export const EverySecond = () => {
   //每一秒触发
 };
-function WinUI(name) {}
+function WinUI(name) {
+  let winEleId = "WinUI";
+  let view = GetViewEle();
+  let WinUIEle = NewEle("div", winEleId, view);
+  let titleEle = SettingsLangText(NewEle("p", "", WinUIEle), "t_win");
+  RLangText([titleEle]);
+}

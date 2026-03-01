@@ -1,9 +1,10 @@
 import zh_cn from "../lang/zh_cn.js";
 import en_us from "../lang/en_us.js";
+import langList from "../lang/list.js";
 //引入语言文件
 
 //export让这个函数可以被其他模块引入
-export const GetFileJson = (FileName) => {
+export const GetFileJson = (FileName, path = "../lang/") => {
   //字符串引导
   let json;
   switch (FileName) {
