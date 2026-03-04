@@ -44,3 +44,10 @@
   transform: translate(100%, -1em);
   color: #fff;
 }
+#TitleWin {
+  display: flex;
+}
+#TitleWin p{
+  width: 100%;
+  text-align: center;
+}

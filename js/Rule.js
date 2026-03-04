@@ -21,9 +21,9 @@ export const RModeRules = () => {
 };
 export const GetGameRules = (id) => {
   let rule = null;
-  if (gameModeRules[id]) {
+  if (gameModeRules[id] != undefined) {
     rule = gameModeRules[id];
-  } else if (DefRules[id]) {
+  } else if (DefRules[id] != undefined) {
     rule = DefRules[id];
   } else {
     //无规则处理
@@ -35,4 +35,6 @@ export const GetGameRules = (id) => {
   }
   return rule;
 };
-export const SetRules = () => {};
+export const SetGameRules = (id, value) => {
+  gameModeRules[id] = value;
+};

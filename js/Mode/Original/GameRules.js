@@ -10,7 +10,7 @@ import {
   GetChessPlaidEle,
   NewEle,
 } from "../../Element.js";
-import { GetGameRules } from "../../Rule.js";
+import { GetGameRules, SetGameRules } from "../../Rule.js";
 import {
   AddCSS,
   DelCSS,
@@ -41,6 +41,7 @@ export const GameEnd = () => {
 };
 export const ClickChessPlaid = (ele) => {
   //点击棋子触发
+  if (GetGameRules("PlayerChess") == false) return;
   const plaid = JSON.parse(ele.getAttribute("plaid"));
   let name = Player[ChessNumber % 2];
   if (PlayChess(plaid, name) == true) {
@@ -68,6 +69,7 @@ export const ClickChessPlaid = (ele) => {
           if (!End) {
             End = true;
             WinUI(name);
+            SetGameRules("PlayerChess", false);
           }
           break;
         }
@@ -96,6 +98,9 @@ function WinUI(name) {
   let winEleId = "WinUI";
   let view = GetViewEle();
   let WinUIEle = NewEle("div", winEleId, view);
-  let titleEle = SettingsLangText(NewEle("p", "", WinUIEle), "t_win");
-  RLangText([titleEle]);
+  let titleEle = NewEle("div", "TitleWin", WinUIEle);
+  let titleEleWinA = SettingsLangText(NewEle("p", "", titleEle), "t_win");
+  RLangText([titleEleWinA]);
+  let titleEleWinB = NewEle("p", "", titleEle);
+  titleEleWinB.innerHTML = name;
 }

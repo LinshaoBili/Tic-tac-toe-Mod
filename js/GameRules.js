@@ -1,4 +1,5 @@
 export default {
+  PlayerChess: true,
   //基础玩法配置
   PlayerMin: 2, //最小玩家数
   PlayerMax: 2, //最大玩家数
