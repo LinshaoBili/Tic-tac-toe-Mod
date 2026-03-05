@@ -1,4 +1,5 @@
 import {
+  DefChessBoard,
   GetNearbyPieces,
   GetPiecesAngle,
   NewChessBoard,
@@ -10,7 +11,7 @@ import {
   GetChessPlaidEle,
   NewEle,
 } from "../../Element.js";
-import { GetGameRules, SetGameRules } from "../../Rule.js";
+import { GetGameRules, RModeRules, SetGameRules } from "../../Rule.js";
 import {
   AddCSS,
   DelCSS,
@@ -19,21 +20,51 @@ import {
   StatusType,
 } from "../../Start.js";
 import { Focus } from "../../Camera.js";
-import { NLT, RLangText, SettingsLangText } from "../../Language.js";
-export default {};
+import {
+  AddLangJson,
+  GetLang,
+  NLT,
+  RLangText,
+  SettingsLangText,
+} from "../../Language.js";
+import Lang from "./Lang.js";
+export default {
+  ChessBoardGenerate: {
+    //棋盘生成配置
+    MaxX: 3,
+    MaxY: 3,
+    Fixed: [
+      { X: 0, Y: 0, ChessPiece: null },
+      { X: 0, Y: 1, ChessPiece: null },
+      { X: 1, Y: 1, ChessPiece: null },
+      { X: 1, Y: 0, ChessPiece: null },
+      { X: 1, Y: -1, ChessPiece: null },
+      { X: 0, Y: -1, ChessPiece: null },
+      { X: -1, Y: -1, ChessPiece: null },
+      { X: -1, Y: 0, ChessPiece: null },
+      { X: -1, Y: 1, ChessPiece: null },
+    ],
+    Placement: [{ Type: "PseudoRandom" }],
+  },
+};
 
 let ChessNumber = 0;
 let Player = ["P1", "P2"];
+let PlayerWin = {};
 let middleEle;
 let CSSUUID;
 let End = false;
 export const GameStart = () => {
   //开始时触发
+  AddLangJson({ D: Lang[GetLang(true)] ?? {}, P: Lang[GetLang()] ?? {} });
   NewChessBoard(GetGameRules("ChessBoardGenerate"));
   EleSetXY(NewChessBoardEle());
   SetStatus(StatusType.Started);
   CSSUUID = AddCSS("js/Mode/Original/Original.css");
   middleEle = GetChessPlaidEle()["0"]["0"];
+  for (const name of Player) {
+    PlayerWin[name] = 0;
+  }
 };
 export const GameEnd = () => {
   DelCSS(CSSUUID);
@@ -44,6 +75,7 @@ export const ClickChessPlaid = (ele) => {
   if (GetGameRules("PlayerChess") == false) return;
   const plaid = JSON.parse(ele.getAttribute("plaid"));
   let name = Player[ChessNumber % 2];
+  // console.log(plaid);
   if (PlayChess(plaid, name) == true) {
     ele.classList.add(name);
     ChessNumber++;
@@ -67,6 +99,7 @@ export const ClickChessPlaid = (ele) => {
             plaidEle.style.backgroundColor = "#fff";
           }
           if (!End) {
+            PlayerWin[name]++;
             End = true;
             WinUI(name);
             SetGameRules("PlayerChess", false);
@@ -100,7 +133,38 @@ function WinUI(name) {
   let WinUIEle = NewEle("div", winEleId, view);
   let titleEle = NewEle("div", "TitleWin", WinUIEle);
   let titleEleWinA = SettingsLangText(NewEle("p", "", titleEle), "t_win");
-  RLangText([titleEleWinA]);
   let titleEleWinB = NewEle("p", "", titleEle);
   titleEleWinB.innerHTML = name;
+  let rLangList = [titleEleWinA];
+  for (const name of Player) {
+    let playerWonNumEle = SettingsLangText(
+      NewEle("p", "", WinUIEle),
+      "player_win_num",
+      [`name@@@${name}`, `num@@@${PlayerWin[name]}`]
+    );
+    playerWonNumEle.classList.add("PlayerWinNum");
+    rLangList.push(playerWonNumEle);
+  }
+  let UIButtonList = [
+    {
+      langid: "t_onemoretime",
+      click: function () {
+        document.getElementById(winEleId).remove();
+        DefChessBoard();
+        NewChessBoard(GetGameRules("ChessBoardGenerate"));
+        EleSetXY(NewChessBoardEle());
+        SetStatus(StatusType.Started);
+        middleEle = GetChessPlaidEle()["0"]["0"];
+        End = false;
+        SetGameRules("PlayerChess", true);
+      },
+    },
+  ];
+  for (const eleJson of UIButtonList) {
+    let ele = NewEle("div", "", WinUIEle);
+    let textEle = SettingsLangText(NewEle("p", "", ele), eleJson.langid);
+    ele.onclick = eleJson.click;
+    rLangList.push(textEle);
+  }
+  RLangText(rLangList);
 }

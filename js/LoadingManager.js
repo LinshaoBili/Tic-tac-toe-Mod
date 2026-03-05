@@ -1,6 +1,6 @@
 import { GetDate } from "./Date.js";
 import { NewEle } from "./Element.js";
-import { RLangText, SettingsLangText } from "./Language.js";
+import { RLangJson, RLangText, SettingsLangText } from "./Language.js";
 import { MainMenuUI } from "./Menu.js";
 import { GetMainEle } from "./Start.js";
 
@@ -23,6 +23,7 @@ export const GameLogoAnimation = () => {
     time = 1;
   }
   setTimeout(() => (ele.style.animation = `GameLogoAK ${time}s`), 100);
+  RLangJson();
   RLangText([ele]);
   ele.classList.add("ON");
 };

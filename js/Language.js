@@ -3,10 +3,19 @@ import { GetFileJson } from "./GetFile.js";
 const LangTitle = document.getElementById("LangTitle");
 const LangJson = { D: {}, P: {} }; //D 默认语言 P 玩家使用的语言  玩家使用的语言缺少(Error)时将使用默认语言
 let LangName = "zh_cn"; //使用目前的语言
+const DLangName = "zh_cn";
 
+export const AddLangJson = (NewLangJson = { D: {}, P: {} }) => {
+  //添加外部语言文件
+  if (NewLangJson.D != {}) Object.assign(LangJson.D, NewLangJson.D);
+  if (NewLangJson.P != {}) Object.assign(LangJson.P, NewLangJson.P);
+  // console.log(NewLangJson.D, NewLangJson.P, "\n", LangJson);
+};
+export const RLangJson = () => {
+  SetLang(GetLang());
+};
 export const RLangText = (LangText = []) => {
   //重载并应用语言
-  SetLang(GetLang());
   if (LangText.length > 1 && LangText == []) {
     let AllText = document.getElementsByClassName("Text"); //获取全部class为"Text"的元素
     for (let i = 0; i < AllText.length; i++) {
@@ -18,7 +27,8 @@ export const RLangText = (LangText = []) => {
   }
   for (let i = 0; i < LangText.length; i++) {
     let LangData = JSON.parse(LangText[i].getAttribute("langdata")); //将属性"langdata"里的字符串JSON转换回JSON
-    LangText[i].innerText = NewLangText(LangData["id"], LangData["array"]); //解析并应用文本
+    LangText[i].innerText = NewLangText(LangData.id, LangData.array); //解析并应用文本
+    console.log(LangData.array);
   }
 };
 
@@ -26,11 +36,12 @@ export const SetLang = (langname) => {
   //更改目前的语言
   localStorage.setItem("LangName", langname);
   LangName = langname;
-  LangJson["P"] = GetFileJson(LangName);
+  LangJson.P = GetFileJson(LangName);
   LangTitle.innerText = `Lang>${LangName}`;
 };
-export const GetLang = () => {
+export const GetLang = (Default = false) => {
   //返回目前的语言
+  if (Default) return DLangName;
   return localStorage.getItem("LangName") ?? LangName;
 };
 export const Language = (LangId) => {
@@ -41,7 +52,7 @@ export const Language = (LangId) => {
 };
 export const LangInitialize = () => {
   //初始化
-  LangJson["D"] = GetFileJson("zh_cn");
+  LangJson.D = GetFileJson("zh_cn");
 };
 export const NewLangText = (LangId, array = []) => {
   //解析属性"langdata"转换后的JSON

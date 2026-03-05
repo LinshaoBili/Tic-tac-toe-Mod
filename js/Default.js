@@ -1,5 +1,5 @@
 import { CameraUpdate, SetCameraConfig } from "./Camera.js";
-import { LangInitialize, RLangText } from "./Language.js";
+import { LangInitialize, RLangJson, RLangText } from "./Language.js";
 import { GameLogoAnimation } from "./LoadingManager.js";
 import { RModeRules } from "./Rule.js";
 import { SKey } from "./ShortcutKey.js";
@@ -12,6 +12,7 @@ function Initialize() {
   //初始化语言
   RModeRules();
   //更新游戏规则
+  RLangJson();
   RLangText();
   //更新文本
   setTimeout(() => GameLogoAnimation(), 100);

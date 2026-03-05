@@ -1,9 +1,9 @@
 import { GetDate, SetDate } from "./Date.js";
 import { GetButtonDate, SettingsButton } from "./Button.js";
 import { EleSetXY, NewEle } from "./Element.js";
-import { SettingsLangText, RLangText, SetLang } from "./Language.js";
+import { SettingsLangText, RLangText, SetLang, RLangJson } from "./Language.js";
 import { GetMainEle, GetModeCode, RModeCode, SetModeName } from "./Start.js";
-import { ModeList } from "./Mode/Mode.js";
+import ModeList from "./Mode/Mode.js";
 import LangList from "../lang/list.js";
 
 export const MainMenuUI = () => {
@@ -35,6 +35,7 @@ export const MainMenuUI = () => {
   }
   GetMainEle().appendChild(list);
   //把元素div放进元素main里
+  RLangJson();
   RLangText(list.querySelectorAll(".Text"));
   //调用Language.js 的RLangText 更新元素
 };
@@ -80,7 +81,7 @@ export const StartModeUI = () => {
     Ele.style.animation = "";
   });
 
-  let modeList = ModeList();
+  let modeList = ModeList;
   let listEle = Ele.getElementsByClassName("Ele MapList")[0];
   for (const array of modeList) {
     let modeEle = NewEle("main");
@@ -173,12 +174,12 @@ export const SettingsUI = () => {
   saveEle.onclick = function () {
     let date = { settings: {} };
     let buttonEleList = Ele.querySelectorAll(
-      ".Bool,.IntNumerical,.FloatNumerical",
+      ".Bool,.IntNumerical,.FloatNumerical"
     );
     //querySelectorAll用css的方式获取元素 All全部
     for (const array of buttonEleList) {
       let id = JSON.parse(
-        array.getElementsByClassName("Text")[0].getAttribute("langdata"),
+        array.getElementsByClassName("Text")[0].getAttribute("langdata")
       ).id;
       date.settings[id] = GetButtonDate(array);
     }
@@ -249,6 +250,7 @@ export const LanguageUI = () => {
     langEle.innerHTML = array.name;
     langEle.onclick = function () {
       SetLang(array.id);
+      RLangJson();
       RLangText(Ele.querySelectorAll(".Text"));
     };
     listEle.appendChild(langEle);

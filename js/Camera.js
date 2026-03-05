@@ -21,6 +21,7 @@ let clientY = 0;
 let movementX = 0;
 let movementY = 0;
 document.addEventListener("mousemove", (event) => {
+  //鼠标移动时触发
   clientX = event.clientX;
   clientY = event.clientY;
   movementX = event.movementX;
@@ -46,6 +47,7 @@ export const CameraUpdate = (Config = { Enable: true, ProcessUUID: null }) => {
   }
 };
 export const Focus = (selectChessPlaidEle = GetSelectChessPlaid()) => {
+  //更新相机位置
   let chessBoardEle = GetViewEle(); //棋盘元素
   let PH = window.innerHeight; //玩家的界面高度
   let PW = window.innerWidth; //玩家的界面宽度
@@ -96,6 +98,7 @@ export const SetCameraConfig = (json) => {
   Object.assign(CameraConfig, json);
 };
 function ScrollZoom(event) {
+  //相机的缩放
   if (Zoom == false) return;
   event.preventDefault();
   const deltaY = event.deltaY;
@@ -106,11 +109,12 @@ function ScrollZoom(event) {
   let view = GetViewEle();
   let transform = view.style.transform.replace(
     /scale\([^)]+\)/,
-    `scale(${ZoomSize})`,
+    `scale(${ZoomSize})`
   );
   view.style.transform = transform;
 }
 window.addEventListener("wheel", ScrollZoom, { passive: false });
+//鼠标滚动时触发
 
 let DragDown = false;
 
@@ -129,6 +133,7 @@ if (Drag == true) {
   window.onmouseup = DragMouseUp;
 }
 function CameraDrag() {
+  //相机运动处理
   if (DragDown == false) return;
   let PH = window.innerHeight; //玩家的界面高度
   let PW = window.innerWidth; //玩家的界面宽度
@@ -139,7 +144,7 @@ function CameraDrag() {
   let view = GetViewEle();
   let transform = view.style.transform.replace(
     /translate\([^)]+\)/,
-    `translate(${Translate.X - 50}%,${Translate.Y - 50}%)`,
+    `translate(${Translate.X - 50}%,${Translate.Y - 50}%)`
   );
   view.style.transform = transform;
 }

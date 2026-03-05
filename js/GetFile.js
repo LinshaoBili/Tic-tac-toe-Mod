@@ -7,13 +7,15 @@ import langList from "../lang/list.js";
 export const GetFileJson = (FileName, path = "../lang/") => {
   //字符串引导
   let json;
-  switch (FileName) {
-    case "zh_cn":
-      json = zh_cn;
-      break;
-    case "en_us":
-      json = en_us;
-      break;
+  for (const lang of langList) {
+    switch (FileName) {
+      case "zh_cn":
+        json = zh_cn;
+        break;
+      case "en_us":
+        json = en_us;
+        break;
+    }
   }
-  return json;
+  return JSON.parse(JSON.stringify(json));
 };

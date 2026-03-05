@@ -1,4 +1,5 @@
 import { GetChessPlaidEle } from "./Element.js";
+import { GetViewEle } from "./Start.js";
 
 let chessBoardRule;
 let chessBoard = [];
@@ -6,6 +7,10 @@ let selectChessPlaid = null;
 export const GetChessBoard = () => {
   //获取棋盘
   return chessBoard;
+};
+export const DefChessBoard = () => {
+  chessBoard = [];
+  GetViewEle().innerHTML = "";
 };
 export const PlayChess = (ChessXY, Name = null, Replace = false) => {
   //下棋
@@ -27,44 +32,46 @@ export const PlayChess = (ChessXY, Name = null, Replace = false) => {
   return Replace;
 };
 export const NewChessBoard = (rule = chessBoardRule) => {
-  chessBoard = [];
-  chessBoard["All"] = [];
-  ExpandChessBoard({ X: rule.MaxX, Y: rule.MaxY });
+  let newCB = [];
+  newCB["All"] = [];
+  newCB = ExpandChessBoard({ X: rule.MaxX, Y: rule.MaxY }, newCB);
+  console.log(rule);
+  console.log(newCB);
 
   //棋盘生成规则
   //固定
   let Fixed = rule["Fixed"];
-  if (Fixed) SetChessPlaid(Fixed);
-
-  console.log(chessBoard);
+  if (Fixed) SetChessPlaid(Fixed, newCB);
+  chessBoard = newCB;
 };
 export const ExpandChessBoard = (max = { X, Y }, CB = chessBoard) => {
   //扩展棋盘
-  chessBoard["lengthAll"] = 0;
-  chessBoard["Start"] = Math.round(-max["X"] / 2);
+  CB["lengthAll"] = 0;
+  CB["Start"] = Math.round(-max["X"] / 2);
   //Math.round 四舍五入
   for (
     let iX = Math.round(-max["X"] / 2);
     iX < Math.round(max["X"] / 2);
     iX++
   ) {
-    chessBoard[iX] = [];
-    chessBoard[iX]["Start"] = Math.round(-max["Y"] / 2);
-    chessBoard[iX]["lengthAll"] = 0;
-    chessBoard["lengthAll"]++;
+    CB[iX] = [];
+    CB[iX]["Start"] = Math.round(-max["Y"] / 2);
+    CB[iX]["lengthAll"] = 0;
+    CB["lengthAll"]++;
     for (
       let iY = Math.round(-max["Y"] / 2);
       iY < Math.round(max["Y"] / 2);
       iY++
     ) {
-      chessBoard[iX]["lengthAll"]++;
-      if (!chessBoard[iX][iY]) {
+      CB[iX]["lengthAll"]++;
+      if (!CB[iX][iY]) {
         let cb = { X: iX, Y: iY };
-        chessBoard["All"].push(cb);
-        chessBoard[iX][iY] = chessBoard["All"][chessBoard["All"].length - 1];
+        CB["All"].push(cb);
+        CB[iX][iY] = CB["All"][CB["All"].length - 1];
       }
     }
   }
+  return CB;
 };
 
 export const SetChessPlaid = (array = [], CB = chessBoard) => {
@@ -89,7 +96,7 @@ export const GetPiecesAngle = Object.freeze({
 export const GetNearbyPieces = (
   Plaid = { X: null, Y: null },
   Angle = GetPiecesAngle.r0,
-  Range = { Min: -1, Max: 1 },
+  Range = { Min: -1, Max: 1 }
 ) => {
   if (Plaid.X == null && Plaid.Y == null) return;
   let plaidEleList = GetChessPlaidEle();

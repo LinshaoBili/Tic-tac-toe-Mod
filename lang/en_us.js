@@ -22,6 +22,7 @@ export default {
   t_on: "on",
   t_off: "off",
   t_win: "win",
+  t_won: "won",
   t_player: "player",
   t_time: "time",
   t_onemoretime: "one more time",

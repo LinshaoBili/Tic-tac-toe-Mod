@@ -25,6 +25,7 @@ export default {
   t_on: "开",
   t_off: "关",
   t_win: "胜利",
+  t_won: "赢",
   t_player: "玩家",
   t_time: "时间",
   t_onemoretime: "再来一次",

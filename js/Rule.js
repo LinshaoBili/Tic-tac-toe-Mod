@@ -19,7 +19,8 @@ export const RModeRules = () => {
       break;
   }
 };
-export const GetGameRules = (id) => {
+export const GetGameRules = (id = null) => {
+  if (id == null) return gameModeRules;
   let rule = null;
   if (gameModeRules[id] != undefined) {
     rule = gameModeRules[id];
@@ -30,10 +31,10 @@ export const GetGameRules = (id) => {
     let errorText = `${NLT("error")} ${NLT("error_missing")} ${NLT(
       "t_rule"
     )} "${id}"`;
-    console.error(errorText);
+    console.error(errorText);  
     rule = undefined;
   }
-  return rule;
+  return JSON.parse(JSON.stringify(rule));
 };
 export const SetGameRules = (id, value) => {
   gameModeRules[id] = value;

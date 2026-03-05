@@ -1,12 +1,12 @@
 import { NewUUID } from "./Date.js";
 import { NewLangText, NLT } from "./Language.js";
-import { ModeList } from "./Mode/Mode.js";
+import ModeList from "./Mode/Mode.js";
 export const StatusType = Object.freeze({
   Started: { Started: "Started" },
   idle: { idle: "idle" },
 });
 let status = StatusType.idle;
-let mode = ModeList()[0].url;
+let mode = ModeList[0].url;
 let main = document.getElementById("main");
 let view = document.getElementById("view");
 let modeCode = null;
@@ -15,7 +15,7 @@ export const GetModeName = () => {
   return mode;
 };
 export const SetModeName = (name) => {
-  for (const array of ModeList()) {
+  for (const array of ModeList) {
     if (array.url == name) {
       mode = name;
       return;
