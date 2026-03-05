@@ -9,11 +9,12 @@ export default {
   settings: "设置",
   mode: "模式",
   choose_mode: "选择模式",
-  quit: "退出",
+  quit: "离开",
   test: "测试",
   exit: "退出",
   save: "保存",
   language: "语言",
+  home_page: "主页",
 
   //设置
   speed_game_logo: "快速游戏Logo",

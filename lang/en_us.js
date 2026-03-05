@@ -13,6 +13,7 @@ export default {
   exit: "Exit",
   save: "Save",
   language: "Language",
+  home_page: "Home Page",
 
   speed_game_logo: "Quick Game Logo",
   s_key: "Keyboard Editing",
