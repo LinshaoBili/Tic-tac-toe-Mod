@@ -28,6 +28,7 @@ import {
   SettingsLangText,
 } from "../../Language.js";
 import Lang from "./Lang.js";
+import { MainMenuUI } from "../../Menu.js";
 export default {
   ChessBoardGenerate: {
     //棋盘生成配置
@@ -67,7 +68,9 @@ export const GameStart = () => {
   }
 };
 export const GameEnd = () => {
+  DefChessBoard();
   DelCSS(CSSUUID);
+  location.reload(true);
   //结束时触发
 };
 export const ClickChessPlaid = (ele) => {
@@ -153,7 +156,9 @@ function WinUI(name) {
       array: [`name@@@${Player[ChessNumber % 2]}`],
       click: function () {
         ChessNumber++;
-        let ele = document.getElementsByClassName("NextFirstMove")[0].getElementsByTagName("p")[0];
+        let ele = document
+          .getElementsByClassName("NextFirstMove")[0]
+          .getElementsByTagName("p")[0];
         let langdata = JSON.parse(ele.getAttribute("langdata"));
         langdata.array[0] = `${langdata.array[0].split("@@@")[0]}@@@${Player[ChessNumber % 2]}`;
         ele.setAttribute("langdata", JSON.stringify(langdata));
@@ -172,6 +177,13 @@ function WinUI(name) {
         middleEle = GetChessPlaidEle()["0"]["0"];
         End = false;
         SetGameRules("PlayerChess", true);
+      },
+    },
+    {
+      langid: "home_page",
+      class: ["HomePage"],
+      click: function () {
+        GameEnd();
       },
     },
   ];

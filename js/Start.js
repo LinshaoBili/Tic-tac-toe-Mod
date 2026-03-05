@@ -81,8 +81,6 @@ export const AddCSS = (href = null, uuid = NewUUID()) => {
   return uuid;
 };
 export const DelCSS = (id) => {
-  let cssEleList = document.head.querySelectorAll(`${id}`);
-  for (const ele of cssEleList) {
-    ele.remove();
-  }
+  let cssEle = document.getElementById(id);
+  cssEle.remove();
 };
