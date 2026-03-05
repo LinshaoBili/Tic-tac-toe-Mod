@@ -28,7 +28,6 @@ export const RLangText = (LangText = []) => {
   for (let i = 0; i < LangText.length; i++) {
     let LangData = JSON.parse(LangText[i].getAttribute("langdata")); //将属性"langdata"里的字符串JSON转换回JSON
     LangText[i].innerText = NewLangText(LangData.id, LangData.array); //解析并应用文本
-    console.log(LangData.array);
   }
 };
 

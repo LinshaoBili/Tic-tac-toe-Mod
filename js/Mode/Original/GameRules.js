@@ -128,6 +128,7 @@ export const EverySecond = () => {
   //每一秒触发
 };
 function WinUI(name) {
+  ChessNumber = 0;
   let winEleId = "WinUI";
   let view = GetViewEle();
   let WinUIEle = NewEle("div", winEleId, view);
@@ -140,14 +141,28 @@ function WinUI(name) {
     let playerWonNumEle = SettingsLangText(
       NewEle("p", "", WinUIEle),
       "player_win_num",
-      [`name@@@${name}`, `num@@@${PlayerWin[name]}`]
+      [`name@@@${name}`, `num@@@${PlayerWin[name]}`],
     );
     playerWonNumEle.classList.add("PlayerWinNum");
     rLangList.push(playerWonNumEle);
   }
   let UIButtonList = [
     {
+      langid: "next_first_move",
+      class: ["NextFirstMove"],
+      array: [`name@@@${Player[ChessNumber % 2]}`],
+      click: function () {
+        ChessNumber++;
+        let ele = document.getElementsByClassName("NextFirstMove")[0].getElementsByTagName("p")[0];
+        let langdata = JSON.parse(ele.getAttribute("langdata"));
+        langdata.array[0] = `${langdata.array[0].split("@@@")[0]}@@@${Player[ChessNumber % 2]}`;
+        ele.setAttribute("langdata", JSON.stringify(langdata));
+        RLangText([ele]);
+      },
+    },
+    {
       langid: "t_onemoretime",
+      class: ["OneMoreTime"],
       click: function () {
         document.getElementById(winEleId).remove();
         DefChessBoard();
@@ -162,8 +177,15 @@ function WinUI(name) {
   ];
   for (const eleJson of UIButtonList) {
     let ele = NewEle("div", "", WinUIEle);
-    let textEle = SettingsLangText(NewEle("p", "", ele), eleJson.langid);
+    let textEle = SettingsLangText(
+      NewEle("p", "", ele),
+      eleJson.langid,
+      eleJson.array,
+    );
     ele.onclick = eleJson.click;
+    for (const className of eleJson.class) {
+      ele.classList.add(className);
+    }
     rLangList.push(textEle);
   }
   RLangText(rLangList);
