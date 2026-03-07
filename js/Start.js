@@ -1,5 +1,5 @@
 import { NewUUID } from "./Data.js";
-import { NewLangText, NLT } from "./Language.js";
+import { NewLangText } from "./Language.js";
 import ModeList from "./Mode/Mode.js";
 export const StatusType = Object.freeze({
   Started: { Started: "Started" },
@@ -15,6 +15,7 @@ export const GetModeName = () => {
   return mode;
 };
 export const SetModeName = (name) => {
+  //设置模式名
   for (const array of ModeList) {
     if (array.url == name) {
       mode = name;
@@ -34,6 +35,7 @@ export const GetModeCode = () => {
   return modeCode;
 };
 export const RModeCode = () => {
+  //重新加载模式代码
   import(`./Mode/${mode}/GameRules.js`)
     .then((modeule) => {
       modeCode = modeule;
@@ -47,6 +49,7 @@ export const GetStatus = () => {
   return status;
 };
 export const SetStatus = (type = StatusType.idle) => {
+  //设置状态
   status = type;
   switch (type) {
     case StatusType.Started:
@@ -63,6 +66,7 @@ export const SetStatus = (type = StatusType.idle) => {
   }
 };
 export const AddCSS = (href = null, uuid = NewUUID()) => {
+  //添加css
   if (href == null) return;
   const existingLinks = document.querySelectorAll(`link[href="${href}"]`);
   if (existingLinks.length > 0) {
@@ -81,6 +85,7 @@ export const AddCSS = (href = null, uuid = NewUUID()) => {
   return uuid;
 };
 export const DelCSS = (id) => {
+  //删除css
   let cssEle = document.getElementById(id);
   cssEle.remove();
 };

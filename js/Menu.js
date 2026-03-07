@@ -1,5 +1,5 @@
 import { GetData, SetData } from "./Data.js";
-import { GetButtonDate, SettingsButton } from "./Button.js";
+import { GetButtonData, SettingsButton } from "./Button.js";
 import { RModeRules } from "./Rule.js";
 import { NewEle } from "./Element.js";
 import { SettingsLangText, RLangText, SetLang, RLangJson } from "./Language.js";
@@ -197,7 +197,7 @@ export const SettingsUI = () => {
       let id = JSON.parse(
         array.getElementsByClassName("Text")[0].getAttribute("langdata"),
       ).id;
-      date.settings[id] = GetButtonDate(array);
+      date.settings[id] = GetButtonData(array);
     }
     SetData(date);
     exit();

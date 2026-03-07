@@ -14,7 +14,7 @@ export const SettingsButton = (
       Min: 0,
       Max: 5,
     },
-  }
+  },
 ) => {
   //调用对应的代码
   switch (Data.Type) {
@@ -45,7 +45,8 @@ export const isButton = (ele) => {
   return null;
 };
 
-export const GetButtonDate = (target) => {
+export const GetButtonData = (target) => {
+  //获取按钮数据
   switch (isButton(target)) {
     case "Bool":
       return target

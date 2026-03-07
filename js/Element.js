@@ -33,6 +33,7 @@ export const NewChessBoardEle = (chessboard = GetChessBoard()) => {
 };
 
 export const EleSetXY = (list = []) => {
+  //设置元素属性XY坐标
   for (const array of list) {
     array.setAttribute(
       "center",
@@ -64,6 +65,7 @@ export const NewChessPlaid = (appendChild = null) => {
   return ele;
 };
 export const GetChessPlaidEle = () => {
+  //获取棋盘格子元素列表
   let view = GetViewEle();
   let plaidEleList = {};
   for (const eleX of view.children) {

@@ -88,6 +88,7 @@ export const GetSelectChessPlaid = () => {
   return selectChessPlaid;
 };
 export const GetPiecesAngle = Object.freeze({
+  //角度
   r0: { X: 0, Y: 1 },
   r45: { X: 1, Y: 1 },
   r90: { X: 1, Y: 0 },
@@ -98,6 +99,8 @@ export const GetNearbyPieces = (
   Angle = GetPiecesAngle.r0,
   Range = { Min: -1, Max: 1 }
 ) => {
+  //获取附近的棋子
+  //Plaid中心棋格坐标 Angle方向 Range范围
   if (Plaid.X == null && Plaid.Y == null) return;
   let plaidEleList = GetChessPlaidEle();
   let list = [];
@@ -118,4 +121,5 @@ export const GetNearbyPieces = (
     traverse.Y += Angle.Y;
   }
   return list.filter((item) => item !== undefined);
+  //return前过滤掉undefined的元素
 };

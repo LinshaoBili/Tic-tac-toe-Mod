@@ -47,17 +47,16 @@ let End = false;
 export const GameStart = () => {
   //开始时触发
   AddLangJson({ D: Lang[GetLang(true)] ?? {}, P: Lang[GetLang()] ?? {} });
-  NewChessBoard(GetGameRules("ChessBoardGenerate"));
+  NewChessBoard(GetGameRules("ChessBoardGenerate")); //生成棋盘
   EleSetXY(NewChessBoardEle());
   SetStatus(StatusType.Started);
   CSSUUID = AddCSS("js/Mode/Original/Original.css");
-  middleEle = GetChessPlaidEle()["0"]["0"];
+  middleEle = GetChessPlaidEle()["0"]["0"]; //设置中间格子
   for (const name of Player) {
     PlayerWin[name] = 0;
   }
-  SetZoom(true);
-  SetDrag(true);
-  
+  SetZoom(true); //开启缩放
+  SetDrag(true); //开启拖动
 };
 export const GameEnd = () => {
   DefChessBoard();
@@ -68,8 +67,8 @@ export const GameEnd = () => {
 export const ClickChessPlaid = (ele) => {
   //点击棋子触发
   if (GetGameRules("PlayerChess") == false) return;
-  const plaid = JSON.parse(ele.getAttribute("plaid"));
-  let name = Player[ChessNumber % 2];
+  const plaid = JSON.parse(ele.getAttribute("plaid")); //获取棋子坐标
+  let name = Player[ChessNumber % 2]; //获取玩家名
   // console.log(plaid);
   if (PlayChess(plaid, name) == true) {
     ele.classList.add(name);
@@ -83,17 +82,21 @@ export const ClickChessPlaid = (ele) => {
   ];
   // console.log(`\n ${name}`);
   for (const Angle of AngleList) {
-    let plaidEleList = GetNearbyPieces(plaid, Angle, { Min: -2, Max: 2 });
+    let plaidEleList = GetNearbyPieces(plaid, Angle, { Min: -2, Max: 2 }); //获取附近棋子
     let cacke = 0;
     // console.log(plaidEleList);
     for (const plaidEle of plaidEleList) {
       if (plaidEle.classList.contains(name)) {
+        //如果是玩家的棋子
         cacke++;
         if (cacke >= 3) {
+          //如果连续三个棋子
           for (const plaidEle of plaidEleList) {
+            //将连续的棋子变色
             plaidEle.style.backgroundColor = "#fff";
           }
           if (!End) {
+            //玩家胜利
             PlayerWin[name]++;
             End = true;
             WinUI(name);
@@ -123,6 +126,7 @@ export const EverySecond = () => {
   //每一秒触发
 };
 function WinUI(name) {
+  //胜利界面
   ChessNumber = 0;
   let winEleId = "WinUI";
   let view = GetViewEle();
@@ -180,6 +184,7 @@ function WinUI(name) {
     },
   ];
   for (const eleJson of UIButtonList) {
+    //生成按钮
     let ele = NewEle("div", "", WinUIEle);
     let textEle = SettingsLangText(
       NewEle("p", "", ele),
@@ -187,9 +192,7 @@ function WinUI(name) {
       eleJson.array,
     );
     ele.onclick = eleJson.click;
-    for (const className of eleJson.class) {
-      ele.classList.add(className);
-    }
+    ele.classList.add(...eleJson.class);
     rLangList.push(textEle);
   }
   RLangText(rLangList);

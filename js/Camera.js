@@ -2,8 +2,8 @@ import { GetSelectChessPlaid } from "./ChessBoard.js";
 import { NewUUID } from "./Data.js";
 import { GetViewEle, StatusType, GetStatus } from "./Start.js";
 
-let Zoom = true;
-let ZoomSize = 1;
+let Zoom = true; //缩放开关
+let ZoomSize = 1; //缩放大小
 
 export const SetZoom = (Bool) => {
   Zoom = Bool;
@@ -18,8 +18,8 @@ export const GetZoomSize = () => {
   return Zoom;
 };
 
-let Drag = true;
-let Translate = { X: 0, Y: 0 };
+let Drag = true; //拖动开关
+let Translate = { X: 0, Y: 0 }; //相机位移
 
 export const SetDrag = (Bool) => {
   Drag = Bool;

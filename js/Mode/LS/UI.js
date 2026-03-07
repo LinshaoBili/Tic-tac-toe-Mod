@@ -3,6 +3,7 @@ import { RLangText, SettingsLangText } from "../../Language.js";
 import { GetViewEle } from "../../Start.js";
 
 export const MenuUI = () => {
+  //游戏前设置界面
   let LangTextEleList = [];
   let menuUiEle = NewEle("div", "MenuUI", GetViewEle());
   let menuUiLeftEle = NewEle("div", "MenuUI-left", menuUiEle);
