@@ -96,6 +96,7 @@ export const StartModeUI = () => {
     Ele.style.animation = "";
   });
 
+  SetModeName(null);
   let modeList = ModeList;
   let listEle = Ele.getElementsByClassName("Ele MapList")[0];
   for (const array of modeList) {

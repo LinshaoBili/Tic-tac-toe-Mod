@@ -34,7 +34,7 @@ export const GetTranslate = () => {
   return Translate;
 };
 
-const FocusType = Object.freeze({
+export const FocusType = Object.freeze({
   Minimum: { Minimum: "Minimum", Platform: "all" }, //最小
   Moderate: { Moderate: "Moderate", Platform: "all" }, //适中
   ManualKeyboard: { ManualKeyboard: "ManualKeyboard", Platform: "pc" }, //手动键盘
