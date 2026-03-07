@@ -1,4 +1,4 @@
-import { NewUUID, SessionGetDate, SessionSetDate } from "../Date.js";
+import { NewUUID, SessionGetData, SessionSetData } from "../Data.js";
 
 export const NumericalButton = (
   TargetEle = document.createElement("p"),
@@ -11,11 +11,11 @@ export const NumericalButton = (
       Min: 0,
       Max: 5,
     },
-  }
+  },
 ) => {
   let isDrag = false;
   let uuid = NewUUID();
-  SessionSetDate(uuid, Data);
+  SessionSetData(uuid, Data);
   let Numerical = Data.Numerical;
   if (Numerical.Slider) {
     let Ele = document.createElement("main");
@@ -29,7 +29,7 @@ export const NumericalButton = (
     SliderEle.classList.add("Slider");
     SliderEle.setAttribute("uuid", uuid);
     SliderEle.ondrag = function (event) {
-      let Numerical = SessionGetDate(uuid).Numerical;
+      let Numerical = SessionGetData(uuid).Numerical;
       let w = SliderEle.offsetWidth;
       let mx = SliderEle.parentElement.offsetWidth - w;
       let ex = event.offsetX / mx;
@@ -98,7 +98,7 @@ export const NumericalButton = (
       if (array.classList.contains("Slider")) {
         let uuid = array.getAttribute("uuid");
         let maxW = array.parentElement.offsetWidth;
-        let Numerical = SessionGetDate(uuid).Numerical;
+        let Numerical = SessionGetData(uuid).Numerical;
         let max = Numerical.Max;
         let min = Numerical.Min;
         let numerical = array.getAttribute("numerical");

@@ -11,7 +11,7 @@ import {
   GetChessPlaidEle,
   NewEle,
 } from "../../Element.js";
-import { GetGameRules, RModeRules, SetGameRules } from "../../Rule.js";
+import { GetGameRules, SetGameRules } from "../../Rule.js";
 import {
   AddCSS,
   DelCSS,
@@ -19,32 +19,21 @@ import {
   SetStatus,
   StatusType,
 } from "../../Start.js";
-import { Focus } from "../../Camera.js";
+import { Focus, SetDrag, SetZoom } from "../../Camera.js";
 import {
   AddLangJson,
   GetLang,
-  NLT,
   RLangText,
   SettingsLangText,
 } from "../../Language.js";
 import Lang from "./Lang.js";
-import { MainMenuUI } from "../../Menu.js";
 export default {
   ChessBoardGenerate: {
     //棋盘生成配置
     MaxX: 3,
     MaxY: 3,
-    Fixed: [
-      { X: 0, Y: 0, ChessPiece: null },
-      { X: 0, Y: 1, ChessPiece: null },
-      { X: 1, Y: 1, ChessPiece: null },
-      { X: 1, Y: 0, ChessPiece: null },
-      { X: 1, Y: -1, ChessPiece: null },
-      { X: 0, Y: -1, ChessPiece: null },
-      { X: -1, Y: -1, ChessPiece: null },
-      { X: -1, Y: 0, ChessPiece: null },
-      { X: -1, Y: 1, ChessPiece: null },
-    ],
+    DX: 3,
+    DY: 3,
     Placement: [{ Type: "PseudoRandom" }],
   },
 };
@@ -66,6 +55,9 @@ export const GameStart = () => {
   for (const name of Player) {
     PlayerWin[name] = 0;
   }
+  SetZoom(true);
+  SetDrag(true);
+  
 };
 export const GameEnd = () => {
   DefChessBoard();

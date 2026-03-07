@@ -29,9 +29,9 @@ export const GetGameRules = (id = null) => {
   } else {
     //无规则处理
     let errorText = `${NLT("error")} ${NLT("error_missing")} ${NLT(
-      "t_rule"
+      "t_rule",
     )} "${id}"`;
-    console.error(errorText);  
+    console.error(errorText);
     rule = undefined;
   }
   return JSON.parse(JSON.stringify(rule));

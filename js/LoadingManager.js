@@ -1,4 +1,4 @@
-import { GetDate } from "./Date.js";
+import { GetData } from "./Data.js";
 import { NewEle } from "./Element.js";
 import { RLangJson, RLangText, SettingsLangText } from "./Language.js";
 import { MainMenuUI } from "./Menu.js";
@@ -16,7 +16,7 @@ export const GameLogoAnimation = () => {
     //opacity是透明度 1 无透明 0 看不见
     MainMenuUI();
   });
-  let a = GetDate().settings.speed_game_logo.toString().toLowerCase();
+  let a = GetData().settings.speed_game_logo.toString().toLowerCase();
   if (a === "false") {
     time = 3;
   } else {

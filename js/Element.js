@@ -1,6 +1,5 @@
 import { GetChessBoard, SelectChessPlaid } from "./ChessBoard.js";
 import { GetModeCode, GetViewEle } from "./Start.js";
-import { Focus } from "./Camera.js";
 
 export const NewEle = (type = "p", id = "", appendChild = null) => {
   //快捷新建一个元素

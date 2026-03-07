@@ -1,13 +1,28 @@
-import { GetDate, SetDate } from "./Date.js";
+import { GetData, SetData } from "./Data.js";
 import { GetButtonDate, SettingsButton } from "./Button.js";
-import { EleSetXY, NewEle } from "./Element.js";
+import { RModeRules } from "./Rule.js";
+import { NewEle } from "./Element.js";
 import { SettingsLangText, RLangText, SetLang, RLangJson } from "./Language.js";
 import { GetMainEle, GetModeCode, RModeCode, SetModeName } from "./Start.js";
 import ModeList from "./Mode/Mode.js";
 import LangList from "../lang/list.js";
+import {
+  CameraDrag,
+  Focus,
+  SetDrag,
+  SetZoom,
+  SetZoomSize,
+  SetTranslate,
+} from "./Camera.js";
 
 export const MainMenuUI = () => {
   //生成开始菜单
+  SetZoomSize(1);
+  SetZoom(false);
+  SetTranslate({ X: 0, Y: 0 });
+  SetDrag(false);
+  Focus();
+  CameraDrag();
   let id = "MainMenuUI";
   if (document.getElementById(id)) {
     UIR(document.getElementById(id));
@@ -94,6 +109,7 @@ export const StartModeUI = () => {
       }
       modeEle.classList.add("Selected");
       SetModeName(array.url);
+      RModeRules();
       RModeCode();
     };
     modeEle = SettingsLangText(modeEle, array.id, []);
@@ -174,16 +190,16 @@ export const SettingsUI = () => {
   saveEle.onclick = function () {
     let date = { settings: {} };
     let buttonEleList = Ele.querySelectorAll(
-      ".Bool,.IntNumerical,.FloatNumerical"
+      ".Bool,.IntNumerical,.FloatNumerical",
     );
     //querySelectorAll用css的方式获取元素 All全部
     for (const array of buttonEleList) {
       let id = JSON.parse(
-        array.getElementsByClassName("Text")[0].getAttribute("langdata")
+        array.getElementsByClassName("Text")[0].getAttribute("langdata"),
       ).id;
       date.settings[id] = GetButtonDate(array);
     }
-    SetDate(date);
+    SetData(date);
     exit();
   };
 
@@ -290,11 +306,11 @@ export const NewButtonEle = (list = []) => {
       let settingsName = "settings";
       SettingsButton(textEle, {
         Type: array.type,
-        Bool: array.Bool ?? GetDate()[settingsName][array.id] ?? false,
+        Bool: array.Bool ?? GetData()[settingsName][array.id] ?? false,
         Numerical: {
           Slider: array.Slider,
           Value: array.Value,
-          Initial: array.Initial ?? GetDate()[settingsName][array.id] ?? 0,
+          Initial: array.Initial ?? GetData()[settingsName][array.id] ?? 0,
           Min: array.Min,
           Max: array.Max,
         },

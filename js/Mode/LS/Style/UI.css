@@ -1,0 +1,59 @@
+#MenuUI {
+  height: 20em;
+  padding: 0.5em;
+  background-color: rgba(0, 255, 255, 0.075);
+  color: #fff;
+  transition: 0.15s;
+  display: flex;
+}
+#MenuUI-left {
+  width: 10em;
+  height: 100%;
+}
+#MenuUI-right {
+  width: 20em;
+  height: 100%;
+  margin: 0.25em;
+  transition: 0.5s;
+  overflow: hidden;
+}
+#MenuUI-right.Hide {
+  width: 0;
+  transition: 0.15s;
+}
+#MenuUI-right div.Hide {
+  opacity: 0;
+  position: absolute;
+  transition: 0.4s;
+}
+#MenuUI-left-title {
+  font-size: 1.1em;
+  text-align: center;
+  margin: 0 0 0.5em 0;
+}
+.SettingsUI {
+  font-size: 1em;
+  padding: 0.15em 1em 0.15em 0.5em;
+  background-color: rgba(0, 255, 255, 0.075);
+  margin: 0.2em 0;
+  transition: 0.5s;
+}
+.SettingsUI.Selected {
+  background-color: rgba(0, 255, 255, 0.175);
+  transition: 0.15s;
+}
+.SettingsUI:hover {
+  border-radius: 0.1em;
+  transform: scale(1.1);
+  transition: 0.1s;
+}
+.SettingsUI:active {
+  border-radius: 0.1em;
+  transform: scale(1.05);
+  transition: 0s;
+}
+#PlayerSettingsUI {
+  width: 100%;
+  height: 100%;
+  transition: 0.1s;
+}

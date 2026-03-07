@@ -1,0 +1,12 @@
+.ChessBoardX {
+  background-color: rgb(100, 50, 0);
+}
+.Plaid {
+  width: 5em;
+  height: 5em;
+  margin: 0.15em;
+  background-color: rgba(256, 256, 256, 0.5);
+}
+.Plaid::before {
+  transform: translate(0.5em, 0.5em) scale(1.25);
+}

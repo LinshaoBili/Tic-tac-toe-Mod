@@ -1,4 +1,4 @@
-import { NewUUID } from "./Date.js";
+import { NewUUID } from "./Data.js";
 import { NewLangText, NLT } from "./Language.js";
 import ModeList from "./Mode/Mode.js";
 export const StatusType = Object.freeze({
@@ -41,7 +41,7 @@ export const RModeCode = () => {
     .catch((err) => {
       console.error(err);
     });
-  console.log(modeCode);
+  console.log(mode, modeCode);
 };
 export const GetStatus = () => {
   return status;

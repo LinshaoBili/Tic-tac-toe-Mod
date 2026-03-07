@@ -34,9 +34,9 @@ export const PlayChess = (ChessXY, Name = null, Replace = false) => {
 export const NewChessBoard = (rule = chessBoardRule) => {
   let newCB = [];
   newCB["All"] = [];
-  newCB = ExpandChessBoard({ X: rule.MaxX, Y: rule.MaxY }, newCB);
-  console.log(rule);
-  console.log(newCB);
+  newCB = ExpandChessBoard({ X: rule.DX, Y: rule.DY }, newCB);
+  // console.log(rule);
+  // console.log(newCB);
 
   //棋盘生成规则
   //固定

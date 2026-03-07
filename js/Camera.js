@@ -1,12 +1,38 @@
 import { GetSelectChessPlaid } from "./ChessBoard.js";
-import { NewUUID } from "./Date.js";
+import { NewUUID } from "./Data.js";
 import { GetViewEle, StatusType, GetStatus } from "./Start.js";
 
 let Zoom = true;
 let ZoomSize = 1;
 
+export const SetZoom = (Bool) => {
+  Zoom = Bool;
+};
+export const GetZoom = () => {
+  return Zoom;
+};
+export const SetZoomSize = (Z) => {
+  Zoom = Z;
+};
+export const GetZoomSize = () => {
+  return Zoom;
+};
+
 let Drag = true;
 let Translate = { X: 0, Y: 0 };
+
+export const SetDrag = (Bool) => {
+  Drag = Bool;
+};
+export const GetDrag = () => {
+  return Drag;
+};
+export const SetTranslate = (T = { X: 0, Y: 0 }) => {
+  Translate = T;
+};
+export const GetTranslate = () => {
+  return Translate;
+};
 
 const FocusType = Object.freeze({
   Minimum: { Minimum: "Minimum", Platform: "all" }, //最小
@@ -109,7 +135,7 @@ function ScrollZoom(event) {
   let view = GetViewEle();
   let transform = view.style.transform.replace(
     /scale\([^)]+\)/,
-    `scale(${ZoomSize})`
+    `scale(${ZoomSize})`,
   );
   view.style.transform = transform;
 }
@@ -132,9 +158,9 @@ if (Drag == true) {
   window.onmousedown = DragMouseDown;
   window.onmouseup = DragMouseUp;
 }
-function CameraDrag() {
+export const CameraDrag = (Mandatory = false) => {
   //相机运动处理
-  if (DragDown == false) return;
+  if (DragDown == false && Mandatory == false) return;
   let PH = window.innerHeight; //玩家的界面高度
   let PW = window.innerWidth; //玩家的界面宽度
   let TX = (movementX / PW) * (ZoomSize + 250);
@@ -144,7 +170,7 @@ function CameraDrag() {
   let view = GetViewEle();
   let transform = view.style.transform.replace(
     /translate\([^)]+\)/,
-    `translate(${Translate.X - 50}%,${Translate.Y - 50}%)`
+    `translate(${Translate.X - 50}%,${Translate.Y - 50}%)`,
   );
   view.style.transform = transform;
-}
+};
