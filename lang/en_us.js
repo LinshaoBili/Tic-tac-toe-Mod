@@ -27,6 +27,7 @@ export default {
   t_player: "player",
   t_time: "time",
   t_onemoretime: "one more time",
+  t_change:"change",
 
   error: "error",
   error_prompt: "An error occurred in the game and it may not run properly.",

@@ -21,10 +21,14 @@
   width: 0;
   transition: 0.15s;
 }
+#MenuUI-right div.Absolute {
+  display: absolute;
+  transition: 0s;
+}
 #MenuUI-right div.Hide {
+  overflow-x: hidden;
   opacity: 0;
-  position: absolute;
-  transition: 0.4s;
+  transition: 0.5s;
 }
 #MenuUI-left-title {
   font-size: 1.1em;
@@ -62,5 +66,12 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 255, 255, 0.175);
+  overflow-x:hidden;
   transition: 0.1s;
+}
+#PlayerNum {
+  display: flex;
+}
+.PlayerList-item {
+  margin: 0.15em 0.5em;
 }

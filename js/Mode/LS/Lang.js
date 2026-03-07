@@ -2,7 +2,7 @@ export default {
   en_us: {
     game_settings: "Pre-game Settings",
     player_settings: "Player Settings",
-    player_settings_number: "Player Number",
+    player_settings_number: "Player Number : @Num@",
     player_settings_number_max: "Max Player Number",
     player_settings_number_min: "Min Player Number",
     player_settings_name: "Player Name",
@@ -17,10 +17,10 @@ export default {
   zh_cn: {
     game_settings: "游戏前设置",
     player_settings: "玩家设置",
-    player_settings_number: "玩家数量",
+    player_settings_number: "玩家数量 : @Num@",
     player_settings_number_max: "最大玩家数量",
     player_settings_number_min: "最小玩家数量",
-    player_settings_name: "玩家名称",
+    player_settings_name: "玩家名称 @name@",
     player_settings_add: "添加玩家",
     player_settings_remove: "移除玩家",
 

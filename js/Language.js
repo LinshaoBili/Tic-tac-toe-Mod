@@ -77,7 +77,20 @@ export const SettingsLangText = (Ele, LangId, array = []) => {
     JSON.stringify({
       id: LangId,
       array: array,
-    })
+    }),
   );
   return Ele;
+};
+export const GetLangData = (Ele, id = null) => {
+  let LangData = JSON.parse(Ele.getAttribute("langdata"));
+  if (id == null) return LangData;
+  return LangData[id];
+};
+export const AddLangData = (Ele, id, value) => {
+  let LangData = JSON.parse(Ele.getAttribute("langdata"));
+  LangData[id] = value;
+  Ele.setAttribute("langdata", JSON.stringify(LangData));
+};
+export const SetLangData = (Ele, LangData) => {
+  Ele.setAttribute("langdata", JSON.stringify(LangData));
 };

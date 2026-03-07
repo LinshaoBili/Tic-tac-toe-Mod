@@ -30,6 +30,7 @@ export default {
   t_player: "玩家",
   t_time: "时间",
   t_onemoretime: "再来一次",
+  t_change:"修改",
 
   //报错
   error: "错误",

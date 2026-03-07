@@ -23,6 +23,8 @@ import { Focus, SetDrag, SetZoom } from "../../Camera.js";
 import {
   AddLangJson,
   GetLang,
+  GetLangData,
+  AddLangData,
   RLangText,
   SettingsLangText,
 } from "../../Language.js";
@@ -155,9 +157,10 @@ function WinUI(name) {
         let ele = document
           .getElementsByClassName("NextFirstMove")[0]
           .getElementsByTagName("p")[0];
-        let langdata = JSON.parse(ele.getAttribute("langdata"));
-        langdata.array[0] = `${langdata.array[0].split("@@@")[0]}@@@${Player[ChessNumber % 2]}`;
-        ele.setAttribute("langdata", JSON.stringify(langdata));
+        let langdata = GetLangData(ele, "array");
+        AddLangData(ele, "array", [
+          `${langdata[0].split("@@@")[0]}@@@${Player[ChessNumber % 2]}`,
+        ]);
         RLangText([ele]);
       },
     },
