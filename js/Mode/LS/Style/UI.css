@@ -66,12 +66,38 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 255, 255, 0.175);
-  overflow-x:hidden;
-  transition: 0.1s;
+  overflow-x: hidden;
+  min-width: max-content;
+  transition: 0.25s;
 }
 #PlayerNum {
   display: flex;
+  margin: 0.25em 1em 0;
+}
+#PlayerList {
+  overflow: hidden;
+  transition: 0.5s;
 }
 .PlayerList-item {
   margin: 0.15em 0.5em;
+  transition: 1s;
+}
+
+.Btn {
+  width: 7.5em;
+  padding: 0.25em 0;
+  margin: 0.5em 1em;
+  text-align: center;
+  border-radius: 0.15em;
+  box-shadow: 0 0 0.25em #fff;
+  transition: 0.5s;
+}
+.Btn:hover {
+  box-shadow: none;
+  background-color: rgba(0, 255, 255, 0.175);
+  transition: 0.15s;
+}
+.Btn:active {
+  transform: scale(0.95);
+  transition: 0.15s;
 }

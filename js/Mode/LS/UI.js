@@ -1,5 +1,10 @@
 import { NewEle } from "../../Element.js";
-import { RLangText, SettingsLangText } from "../../Language.js";
+import {
+  AddLangData,
+  GetLangData,
+  RLangText,
+  SettingsLangText,
+} from "../../Language.js";
 import { GetViewEle } from "../../Start.js";
 import { AddPlayer, GetSaveData } from "./Data.js";
 
@@ -76,8 +81,12 @@ export const MenuUI = () => {
   RLangText(LangTextEleList);
 };
 function PlayerUI(RightEle) {
-  AddPlayer();
-
+  for (
+    let i = GetSaveData().Player.length;
+    i < GetSaveData().PlayerNum.Min;
+    i++
+  )
+    AddPlayer();
   let LangTextEleList = [];
   let uiId = "PlayerSettingsUI";
   let ele = NewEle("div", uiId, RightEle);
@@ -91,9 +100,43 @@ function PlayerUI(RightEle) {
     "player_settings_number",
     [`Num@@@${GetSaveData().Player.length}`],
   );
+  LangTextEleList.push(playerNumText);
   let playerListEle = NewEle("div", "PlayerList", ele);
   PlayerList(playerListEle);
-  LangTextEleList.push(playerNumText);
+  let playerListHeight;
+  setTimeout(() => {
+    UpdateListHeight();
+  }, 50);
+  let playerAddBtn = NewEle("div", "", ele);
+  playerAddBtn.classList.add(...["Btn", "PlayerAddBtn"]);
+  let playerAddBtnText = SettingsLangText(
+    NewEle("p", "", playerAddBtn),
+    "player_settings_add",
+  );
+  function UpdateListHeight() {
+    let ele = playerListEle.children[0];
+    if (ele) {
+      playerListHeight =
+        ele.offsetHeight + Number(getComputedStyle(ele).margin.split("px ")[0]);
+      playerListEle.style.height =
+        playerListHeight * playerListEle.children.length + "px";
+    } else {
+      playerListEle.style.height = "auto";
+    }
+    console.log(playerListHeight);
+  }
+  playerAddBtn.onclick = function () {
+    playerListEle.innerHTML = "";
+    let maxNum = GetSaveData().PlayerNum.Max;
+    AddPlayer();
+    PlayerList(playerListEle);
+    UpdateListHeight();
+    AddLangData(playerNumText, "array", [
+      `${GetLangData(playerNumText, "array")[0].split("@@@")[0]}@@@${GetSaveData().Player.length}`,
+    ]);
+    RLangText([playerNumText]);
+  };
+  LangTextEleList.push(playerAddBtnText);
   RLangText(LangTextEleList);
 }
 function PlayerList(Ele) {
