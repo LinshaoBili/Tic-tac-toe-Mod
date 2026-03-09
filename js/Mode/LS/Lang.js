@@ -6,6 +6,7 @@ export default {
     player_settings_number_max: "Max Player Number",
     player_settings_number_min: "Min Player Number",
     player_settings_name: "Player Name",
+    player_settings_name_r_title: "Change Player Name",
     player_settings_add: "Add Player",
     player_settings_remove: "Remove Player",
 
@@ -21,6 +22,7 @@ export default {
     player_settings_number_max: "最大玩家数量",
     player_settings_number_min: "最小玩家数量",
     player_settings_name: "@name@",
+    player_settings_name_r_title: "更改玩家名称",
     player_settings_add: "添加玩家",
     player_settings_remove: "移除玩家",
 

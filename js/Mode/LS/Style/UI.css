@@ -75,12 +75,16 @@
   margin: 0.25em 1em 0;
 }
 #PlayerList {
+  padding-bottom:0.25em ;
   overflow: hidden;
   transition: 0.5s;
 }
 .PlayerList-item {
-  margin: 0.15em 0.5em;
+  margin: 0.5em 0.5em;
   transition: 1s;
+}
+.PlayerList-item {
+  display: flex;
 }
 
 .Btn {
@@ -100,4 +104,22 @@
 .Btn:active {
   transform: scale(0.95);
   transition: 0.15s;
+}
+
+.PlayerChange {
+  width: auto;
+  padding: 0 0.5em;
+  margin: 0 0.75em 0 0;
+  font-size: 0.5em;
+  align-content: center;
+}
+
+.InputUI{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 255, 255, 0.175);
+  padding: 1em;
+  border-radius: 0.25em;
 }

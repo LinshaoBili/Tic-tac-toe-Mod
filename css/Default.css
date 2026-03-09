@@ -145,7 +145,12 @@ body {
   transform: scale(1.05);
   transition: 0.15s;
 }
+.MapUI:active {
+  transform: scale(1.045);
+  transition: 0s;
+}
 .MapUI.Selected {
+  transform: scale(1.025);
   box-shadow: 0 0 0.25em #fff;
   transition: 0.15s;
 }

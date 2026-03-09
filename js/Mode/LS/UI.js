@@ -117,17 +117,17 @@ function PlayerUI(RightEle) {
     let ele = playerListEle.children[0];
     if (ele) {
       playerListHeight =
-        ele.offsetHeight + Number(getComputedStyle(ele).margin.split("px ")[0]);
+        ele.offsetHeight + Number(getComputedStyle(ele).margin.split("px")[0]);
       playerListEle.style.height =
         playerListHeight * playerListEle.children.length + "px";
     } else {
       playerListEle.style.height = "auto";
     }
-    console.log(playerListHeight);
   }
   playerAddBtn.onclick = function () {
-    playerListEle.innerHTML = "";
     let maxNum = GetSaveData().PlayerNum.Max;
+    if (GetSaveData().Player.length >= maxNum) return;
+    playerListEle.innerHTML = "";
     AddPlayer();
     PlayerList(playerListEle);
     UpdateListHeight();
@@ -145,12 +145,39 @@ function PlayerList(Ele) {
   for (const PlayerData of playerList) {
     let playerEle = NewEle("div", "", Ele);
     playerEle.classList.add(...["PlayerList-item"]);
+    let playerRNameEle = SettingsLangText(
+      NewEle("div", "", playerEle),
+      "t_change",
+    );
+    playerRNameEle.classList.add(...["PlayerChange", "Btn"]);
+    playerRNameEle.onclick = function () {
+      let titleEle = SettingsLangText(
+        NewEle("p", ""),
+        "player_settings_name_r_title",
+      );
+      InputUI("text", titleEle);
+      RLangText([titleEle]);
+    };
     let playerName = SettingsLangText(
       NewEle("p", "", playerEle),
       "player_settings_name",
       [`name@@@${PlayerData.name}`],
     );
-    LangTextEleList.push(playerName);
+    LangTextEleList.push(...[playerName, playerRNameEle]);
   }
   RLangText(LangTextEleList);
+}
+function InputUI(InputType, TitleEle, TextEle) {
+  let InputUIEle = NewEle("div", "", GetViewEle());
+  InputUIEle.classList.add(...["InputUI", "Hide"]);
+  setTimeout(() => {
+    InputUIEle.classList.remove("Hide");
+  }, 0);
+  if (!TitleEle) TitleEle = NewEle("b");
+  if (!TextEle) TextEle = NewEle("p");
+  InputUIEle.appendChild(TitleEle);
+  InputUIEle.appendChild(TextEle);
+  let InputEle = NewEle("input", "", InputUIEle);
+  InputEle.type = InputType;
+  return InputUIEle;
 }
